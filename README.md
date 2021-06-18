@@ -1,2 +1,2 @@
-# Elasticsearch
+# EPrintsElasticsearch
 Search EPrints on Elasticsearch
