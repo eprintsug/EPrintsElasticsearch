@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE page SYSTEM "entities.dtd" >
+<xpage:page xmlns="http://www.w3.org/1999/xhtml" xmlns:xpage="http://eprints.org/ep3/xpage" xmlns:epc="http://eprints.org/ep3/control">
+<xpage:title>Facettierte Suche</xpage:title>
+<xpage:body>
+
+<script>
+ // local settings, goto react for initial settings
+ var label_searchbox_placeholder = "Suche in allen Metadaten und im Volltext";
+ var label_searchbutton = "Suchen";
+ var label_reset_all = "Neue Suche";
+ var label_advanced_search = "Erweiterte Suche";
+ var label_help = "Hilfe";
+</script>
+
+<!--#config errmsg="" -->
+<!--#include virtual="/faceted-search/index.ssi" -->
+
+</xpage:body>
+
+</xpage:page>

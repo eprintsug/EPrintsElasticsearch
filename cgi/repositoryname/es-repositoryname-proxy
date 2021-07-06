@@ -1,0 +1,145 @@
+#!/usr/bin/perl
+###############################################################################
+# es-{repositoryname}-proxy for original {repositoryname} collection on ES
+#
+# 	proxy between react-client and elastic search server to handle
+# 	authorization, search and facettes.
+#
+# 	2020/01/08/jw: initial
+# 	2020/01/20/jw: get_conf() added
+# 	2020/02/04/jw: check connection / credentials
+# 	2020/02/17/jw: manipulate request / response
+# 	2020/06/09/jw: optimize code
+# 	2020/06/23/jw: results / no results phrases, bug fixes
+# 	2020/08/04/jw: new GUI https://github.com/elastic/search-ui
+# 	2020/09/29/jw: new path, index, user ENV in z_elasticsearch.pl
+# 	2020/10/20/jw: Change Single Node => 3 Nodes
+# 	2020/11/02/jw: Changes on highlighting, check query, modify_request() added
+# 	2020/11/18/jw: add Citation, title, abstract etc. from ZORA
+# 	2020/11/19/jw: language behaviour added
+# 	2020/11/30/jw: new citation, highlighting, rendering img+oa-lock
+# 	2020/11/30/mb: regex clean highlighted parts ini a-tag href + title
+#       2020/12/03/jw: ES6=>ES7
+#       2020/12/21/jw: Change to plugin FacetedSearch::ESProxy.pm
+#       2020/12/22/jw: Changes on highlighting in plugin
+# 	2021/03/23/jw: replace unwanted special chars in query
+# 	2021/04/06/jw: expand Aliases, e.g. language: TI: => TI.\* from z_elasticsearch_aliases.pl
+#       2021/05/10/jw: Intrusion Detection (IDS) added
+#       2021/05/14/jw: Range handling for PY, EPID (cfg: range => 1;)
+#       2021/05/27/jw: env nested languages, check highlight title or citations
+###############################################################################
+
+use warnings;
+use strict;
+use Search::Elasticsearch;
+use EPrints;
+use FileHandle;
+use Encode;
+use utf8;
+use JSON;
+use CGI;
+use CGI qw(:standard);
+
+# initial configs, connect2es
+my $session = EPrints::Session->new();
+exit(0) unless ( defined $session );
+my $es_scheme   = $session->get_repository->get_conf( "es", "scheme" );
+my $es_client   = $session->get_repository->get_conf( "es", "client" );
+my $es_host     = $session->get_repository->get_conf( "es", "host" );
+my $es_port     = $session->get_repository->get_conf( "es", "port" );
+my $es_path     = $session->get_repository->get_conf( "es", "path" );
+my $es_index    = $session->get_repository->get_conf( "es", "index" );
+my $es_userinfo = $session->get_repository->get_conf( "es", "info", "user" );
+my $es_cxn      = $session->get_repository->get_conf( "es", "cxn" );
+
+my @nodes;
+
+foreach my $node (@$es_host)
+{
+	push @nodes, {
+		scheme   => $es_scheme,
+		host     => $node,
+		port     => $es_port,
+		userinfo => $es_userinfo,
+		path     => $es_path.$es_index,
+	};
+}
+
+ #use Data::Dumper;
+ #my $filename_dumper = '/usr/local/eprints/var/es-{repositoryname}-proxy.log';
+ #open( my $fh_dumper, '>>', $filename_dumper )
+   #or die "Could not open file '$filename_dumper' !";
+ #print $fh_dumper Dumper  "*** $0 starts ****************";
+
+# use plugin
+my $repo =  EPrints->new()->current_repository;
+my $plugin = get_proxy_plugin( $repo );
+
+# read json request
+my $json_request_browser = $plugin->get_browser_request($session);
+
+# auth and contact ES
+my $es = eval {
+    Search::Elasticsearch->new(
+    	client => $es_client,
+	nodes => @nodes,
+        cxn => $es_cxn,
+        #trace_to => 'Stderr',
+    );
+};
+
+# check if connection established / credentials must be used!
+if ($@) {
+    #close $fh_dumper;
+    $session->terminate;
+    exit;
+}
+
+# pimp and enrich request
+$json_request_browser = $plugin->modify_request($session,$json_request_browser);
+
+# dump in/out
+ #print $fh_dumper Dumper  "*** request: *******************";
+ #print $fh_dumper Dumper $json_request_browser;
+ #print $fh_dumper Dumper  "*** request ends *******************";
+
+# do search
+my $result = $es->search( { 'body' => { %$json_request_browser } } );
+
+# pimp and enrich results
+$result = $plugin->modify_result($session,$plugin,$result);
+$result = $plugin->add_facet_labels($session,$result);
+
+# dump in/out
+ #print $fh_dumper Dumper  "*** result: ****************";
+ #print $fh_dumper Dumper $result;
+ #print $fh_dumper Dumper  "*** result ends *******************";
+
+# push result to browser
+binmode( STDOUT, ":utf8" );
+print header('application/json');
+print to_json($result);
+
+ #print $fh_dumper Dumper  "*** $0 ends ****************";
+ #close $fh_dumper;
+$session->terminate;
+
+exit;
+
+sub get_proxy_plugin
+{
+	my( $repo ) = @_;
+	
+	my $plugin = $repo->plugin( 'FacetedSearch::ESProxy' );
+	
+	if (!defined $plugin)
+	{
+		print STDERR "Failed to load FacetedSearch::ESProxy plugin\n";
+		$repo->terminate;
+		exit 1;
+	}
+	
+	return $plugin;
+}
+
+1;

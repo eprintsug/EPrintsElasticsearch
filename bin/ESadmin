@@ -1,0 +1,730 @@
+#!/usr/bin/perl -w -I/usr/local/eprints/perl_lib
+
+###############################################################################
+#
+# ESadmin - ElasticSearch administration tool for EPrints
+#
+# Part of ZORA-724
+#
+# 2021/02/23/mb  - Initial version
+# 2021/06/16/mb  - check_counts, check_diffs commands added
+#
+###############################################################################
+#
+#  Copyright 2020 University of Zurich. All Rights Reserved.
+#  
+#  The plug-ins are free software; you can redistribute them and/or modify
+#  them under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#  
+#  The plug-ins are distributed in the hope that they will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with EPrints 3; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+###############################################################################
+
+use strict;
+use warnings;
+use utf8;
+
+###############################################################################
+
+
+=pod
+
+=for Pod2Wiki
+
+=head1 NAME
+
+B<ESadmin> - ElasticSearch administration tool for EPrints
+
+=head1 SYNOPSIS
+
+B<ESadmin> I<command> I<repository_id> [B<options>]
+
+Where I<command> is one of:
+
+=over 4
+
+=item create_index
+
+=item erase_index
+
+=item update_mapping
+
+=item reindex
+
+=item remove_indexitem
+
+=item repair_index
+
+=item check_counts
+
+=item check_diffs
+
+=back
+
+Type I<ESadmin help> for further help.
+
+=head1 ARGUMENTS
+
+=over 8
+
+=item B<ESadmin> create_index I<repository_id>
+
+START HERE! This command creates an empty ES index on your ES server and adds a mapping.
+
+Don't forget to stop the indexer process before executing this command.
+
+=item B<ESadmin> erase_index I<repository_id>
+
+Erases the ES index on your ES server completely.
+
+Don't forget to stop the indexer process before executing this command.
+
+=item B<ESadmin> update_mapping I<repository_id>
+
+This command should be executed after each epadmin update (i.e. when new fields were added to your repository).
+It updates the field mapping of your ES fields.
+
+Don't forget to stop the indexer process before executing this command.
+
+=item B<ESadmin> reindex I<repository_id> I<dataset_id> [I<eprint_id> I<eprint_id> ... | I<eprint_id>-I<eprint_id>]
+
+Schedule the dataset for reindexing. The indexer will do the actual indexing and it may take some time. This only schedules the reindexing. If a list or a range (from-to) of eprint_ids is given then just reindex those. 
+
+=item B<ESadmin> remove_indexitem I<repository_id> I<dataset_id> [I<eprint_id> I<eprint_id> ...]
+
+Removes all index terms and entries for the dataset. The indexer will do the actual cleaning and it may take some time. This only schedules the cleaning.
+ If a list of eprint_ids is given then just those will be cleaned.
+ 
+=item B<ESadmin> repair_index I<repository_id> I<dataset_id>
+
+This command should be executed after an ES index has been restored from the backup. It determines items 
+which have not been indexed or updated after the backup and reindexes them.
+
+=item B<ESadmin> check_counts I<repository_id> I<dataset_id>
+
+This command can be used to check whether the record counts of the ES index and the repository are the same.
+
+=item B<ESadmin> check_diffs I<repository_id> I<dataset_id> [I<check_date>]
+
+This command determines possible differences by modification date of records between the ES index and the 
+repository. It can be used after an ES index has been restored from the backup. To speed up comparison,
+an optional date in the format YYYY-MM-DDThh:mm:ss can be specified, e.g. the date of the ES index backup.
+
+=back
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--help>
+
+Print a brief help message and exit.
+
+=item B<--man>
+
+Print the full manual page and then exit.
+
+=item B<--direct>
+
+Does not index via indexer event queue, but directly. Caveat: Use only for testing single data objects.
+
+=item B<--quiet>
+
+This option does not do anything.
+
+=item B<--verbose>
+
+Explain in detail what is going on. May be repeated for greater effect.
+
+=item B<--force>
+
+Be more forceful (don't ask for confirmation).
+
+=item B<--version>
+
+Output version information and exit.
+
+=back   
+
+=cut
+
+use EPrints;
+use Getopt::Long;
+use Pod::Usage;
+
+use lib "/usr/local/eprints/perl_cpan/lib/perl5";
+
+my $verbose = 0;
+my $quiet = 0;
+my $help = 0;
+my $man = 0;
+my $version = 0;
+my $force = 0;
+my $direct = 0;
+my $noninteractive = 0;
+
+Getopt::Long::Configure("permute");
+
+GetOptions( 
+	'help|?' => \$help,
+	'man' => \$man,
+	'version' => \$version,
+	'verbose+' => \$verbose,
+	'silent' => \$quiet,
+	'quiet' => \$quiet,
+	'direct' => \$direct,
+	'force' => \$force,
+) || pod2usage( 2 );
+EPrints::Utils::cmd_version( "ESadmin" ) if $version;
+pod2usage( 1 ) if $help;
+pod2usage( -exitstatus => 0, -verbose => 2 ) if $man;
+pod2usage( 2 ) if( scalar @ARGV == 0 ); 
+
+# Set STDOUT to auto flush (without needing a \n)
+$|=1;
+
+my $noise = 1;
+$noise = 0 if( $quiet );
+$noise = 1+$verbose if( $verbose );
+
+my $ep = EPrints->new();
+
+my $action = shift @ARGV;
+my $repoid = shift @ARGV;
+pod2usage(1) unless defined $repoid;
+my $repository = $ep->repository( $repoid, noise=>$noise );
+
+if( $action eq "create_index" ) { create_index( $repository ); }
+elsif( $action eq "erase_index" ) { erase_index ( $repository ); }
+elsif( $action eq "update_mapping" ) { update_mapping ( $repository ); }
+elsif( $action eq "reindex" ) 
+{
+	my $datasetid = shift @ARGV;
+	pod2usage(1) unless defined $datasetid;
+	reindex( $repository, $datasetid, @ARGV );
+}
+elsif( $action eq "remove_indexitem" ) 
+{
+	my $datasetid = shift @ARGV;
+	pod2usage(1) unless defined $datasetid;
+	remove_indexitem( $repository, $datasetid, @ARGV );
+}
+elsif( $action eq "repair_index" )
+{
+	my $datasetid = shift @ARGV;
+	pod2usage(1) unless defined $datasetid;
+	repair_index( $repository, $datasetid );
+}
+elsif( $action eq "check_counts" )
+{
+	my $datasetid = shift @ARGV;
+	pod2usage(1) unless defined $datasetid;
+	check_counts( $repository, $datasetid );	
+}
+elsif( $action eq "check_diffs" )
+{
+	my $datasetid = shift @ARGV;
+	my $check_date = shift @ARGV;
+	pod2usage(1) unless defined $datasetid;
+	check_diffs( $repository, $datasetid, $check_date );	
+}
+else { pod2usage( 1 ); }
+
+exit;
+
+
+sub get_es_plugin
+{
+	my( $repo ) = @_;
+	
+	my $plugin = $repo->plugin( 'ES::ESIndex' );
+	
+	if (!defined $plugin)
+	{
+		print STDERR "Failed to load ES::ESIndex plugin\n";
+		$repo->terminate;
+		exit 1;
+	}
+	
+	return $plugin;
+}
+
+
+sub create_index
+{
+	my( $repo ) = @_;
+
+	my $result;
+	
+	print "\n";
+	print "You are about to create an ElasticSearch index for the ".$repo->get_id." repository.\n";
+	
+	my $sure = $force || EPrints::Utils::get_input_confirm( "Did you stop the EPrints indexer", 1 );
+	unless( $sure )
+	{
+		print "Aborting then.\n\n";
+		exit( 1 );
+	}
+	
+	my $es_plugin = get_es_plugin( $repo );
+	
+	$result = $es_plugin->create_index();
+	exit 1 if ($result->{error} != 0);
+	
+	$result = $es_plugin->create_mapping();
+	exit 1 if ($result->{error} != 0);
+	
+	print "\n";
+	print "ElasticSearch index has been created.\n";
+	print "Don't forget to start the EPrints indexer.\n";
+
+	return;
+}
+
+sub erase_index
+{
+	my( $repo ) = @_;
+
+	my $result;
+	
+	print "\n";
+	print "You are about to erase the ElasticSearch index for the ".$repo->get_id." repository.\n";
+	
+	my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+	unless( $sure )
+	{
+		print "Aborting then.\n\n";
+		exit( 1 );
+	}
+	
+	$sure = $force || EPrints::Utils::get_input_confirm( "Did you stop the EPrints indexer", 1 );
+	unless( $sure )
+	{
+		print "Aborting then.\n\n";
+		exit( 1 );
+	}
+	
+	# Remove index events from event queue
+	my $ds_eventqueue = $repo->dataset( "event_queue" );
+	
+	my $searchexp1 = $ds_eventqueue->prepare_search();
+	$searchexp1->add_field(
+		fields => [
+			$ds_eventqueue->field( 'pluginid' )
+		],
+		value => "Event::Indexer",
+		match => "EQ",
+	);
+	
+	$searchexp1->add_field(
+		fields => [
+			$ds_eventqueue->field( 'action' )
+		],
+		value => "index_all",
+		match => "EQ",
+	);
+	
+	my $event_list1 = $searchexp1->perform_search;
+	
+	my $searchexp2 = $ds_eventqueue->prepare_search();
+	$searchexp2->add_field(
+		fields => [
+			$ds_eventqueue->field( 'pluginid' )
+		],
+		value => "Event::Indexer",
+		match => "EQ",
+	);
+	
+	$searchexp2->add_field(
+		fields => [
+			$ds_eventqueue->field( 'action' )
+		],
+		value => "index",
+		match => "EQ",
+	);
+	
+	my $event_list2 = $searchexp2->perform_search;
+	
+	$event_list2->map( \&_remove_event );
+
+	my $es_plugin = get_es_plugin( $repo );
+	
+	$result = $es_plugin->delete_index();
+	exit 1 if ($result->{error} != 0);
+	
+	print "\n";
+	print "ElasticSearch index has been erased completely.\n";
+	print "Don't forget to start the EPrints indexer.\n";
+	
+	return;
+}
+
+sub _remove_event
+{
+	my ($session, $dataset, $eventobj) = @_;
+	
+	my $success = $eventobj->delete;
+	
+	return;
+}
+
+sub update_mapping
+{
+	my( $repo ) = @_;
+
+	my $result;
+	
+	print "\n";
+	print "You are about to update the mapping of the ElasticSearch index for the ".$repo->get_id." repository.\n";
+	
+	my $sure = $force || EPrints::Utils::get_input_confirm( "Did you stop the EPrints indexer", 1 );
+	unless( $sure )
+	{
+		print "Aborting then.\n\n";
+		exit( 1 );
+	}
+	
+	my $es_plugin = get_es_plugin( $repo );
+
+	$result = $es_plugin->create_mapping();
+	exit 1 if ($result->{error} != 0);
+	
+	print "\n";
+	print "Mapping of ElasticSearch index has been updated.\n";
+	print "Don't forget to start the EPrints indexer.\n";
+
+	return;
+}
+
+sub reindex
+{
+	my( $repo, $datasetid, @ids ) = @_;
+
+	my $indexer;
+	
+	my $dataset = $repo->dataset( $datasetid );
+	if( !defined $dataset )
+	{
+		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+		exit( 1 );
+	}
+
+	my $list;
+	if( @ids )
+	{ 
+		# 2020/10/01/jw add range of eprint_ids
+		my $pos = index($ids[0],"-");
+		if ($pos >= 0) {
+			my $von = substr($ids[0],0,$pos);
+			my $bis = substr($ids[0],$pos+1);
+			@ids = ($von..$bis);
+		}
+		# 2020/10/01/jw add range of eprint_ids - end
+
+		$list = $dataset->list( \@ids );
+	}
+	else
+	{
+		$list = $dataset->search;
+
+		if( $noise > 0 )
+		{
+			print "\n";
+			print "You are about to reindex \"$datasetid\" in the ".$repo->get_id." repository.\n";
+			print "This can take some time.\n\n";
+			print "Number of records in set: ".$list->count."\n";
+		}
+	
+		my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+		unless( $sure )
+		{
+			print "Aborting then.\n\n";
+			exit( 1 );
+		}
+	}
+	
+	if ($direct)
+	{
+		$indexer = get_es_plugin( $repo );
+		print STDERR "Using direct indexing\n";
+	}
+	else
+	{
+		$indexer = $repo->plugin( "Event::Indexer" );
+		print STDERR "Using queued indexing\n";
+	}
+
+	$list->map(sub {
+		my( undef, $dataset, $item ) = @_;
+	
+		$indexer->index_all( $item );
+
+		if( $noise >= 2 )
+		{
+			print STDERR "Indexed item: ".$dataset->id()."/".$item->id()."\n";
+		}
+	});
+	
+	return;
+}
+
+sub remove_indexitem
+{
+	my( $repo, $datasetid, @ids ) = @_;
+	
+	my $indexer;
+	
+	my $dataset = $repo->dataset( $datasetid );
+	if( !defined $dataset )
+	{
+		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+		$repo->terminate;
+		exit( 1 );
+	}
+
+	my $list;
+	if( @ids )
+	{ 
+		# 2020/10/01/jw add range of eprint_ids
+		my $pos = index($ids[0],"-");
+		if ($pos >= 0) {
+			my $von = substr($ids[0],0,$pos);
+			my $bis = substr($ids[0],$pos+1);
+			@ids = ($von..$bis);
+		}
+		# 2020/10/01/jw add range of eprint_ids - end
+
+		$list = $dataset->list( \@ids );
+	}
+	else
+	{
+		$list = $dataset->search;
+
+		if( $noise > 0 )
+		{
+			print "\n";
+			print "You are about to remove index entries in \"$datasetid\" in the ".$repo->get_id." repository.\n";
+			print "This can take some time.\n\n";
+			print "Number of records in set: ".$list->count."\n";
+		}
+	
+		my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+		unless( $sure )
+		{
+			print "Aborting then.\n\n";
+			exit( 1 );
+		}
+	}
+	
+	if ($direct)
+	{
+		$indexer = get_es_plugin( $repo );
+		print STDERR "Using direct indexing\n";
+		
+		$list->map(sub {
+			my( undef, $dataset, $item ) = @_;
+	
+			$indexer->remove_index_item( $dataset, $item->id );
+
+			if( $noise >= 2 )
+			{
+				print STDERR "Removed index item: ".$dataset->id()."/".$item->id()."\n";
+			}
+	});
+		
+	}
+	else
+	{
+		$indexer = $repo->plugin( "Event::Indexer" );
+		print STDERR "Using queued indexing\n";
+		
+		$list->map(sub {
+			my( undef, $dataset, $item ) = @_;
+	
+			$indexer->removed( $dataset->base_id(), $item->id() );
+
+			if( $noise >= 2 )
+			{
+				print STDERR "Removed index item: ".$dataset->id()."/".$item->id()."\n";
+			}
+		});
+	}
+
+	return;
+}
+
+
+sub repair_index
+{
+	my( $repo, $datasetid ) = @_;
+	
+	my $dataset = $repo->dataset( $datasetid );
+	if( !defined $dataset )
+	{
+		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+		$repo->terminate;
+		exit( 1 );
+	}
+	
+	my $list = $dataset->search;
+	
+	if( $noise > 0 )
+	{
+		print "\n";
+		print "You are about to repair the index for \"$datasetid\" in the ".$repo->get_id." repository.\n";
+		print "This can take some time.\n\n";
+		print "Number of records to be checked in set: ".$list->count."\n";
+	}
+	
+	my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+	unless( $sure )
+	{
+		print "Aborting then.\n\n";
+		exit( 1 );
+	}
+	
+	my $es_plugin = get_es_plugin( $repo );
+	
+	$list->map(sub {
+		my( undef, $dataset, $item ) = @_;
+	
+		my $item_id = $item->id;
+	
+		my $ret = $es_plugin->repair_index_item( $item );
+		
+		print "Item $item_id added to ES index\n" if ($ret == 1 && $noise >=1 );
+		print "Item $item_id updated in ES index\n" if ($ret == 2 && $noise >=1 );
+	});
+	
+	return;	
+}
+
+sub check_counts
+{
+	my( $repo, $datasetid ) = @_;
+	
+	my $repoid = $repo->id;
+	my $dataset = $repo->dataset( $datasetid );
+	if( !defined $dataset )
+	{
+		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+		$repo->terminate;
+		exit( 1 );
+	}
+	
+	my $list = $dataset->search;
+	
+	my $ep_count = $list->count();
+	
+	my $es_plugin = get_es_plugin( $repo );
+	my $es_count = $es_plugin->get_record_count();
+	
+	print "$repoid repository count for dataset $datasetid: $ep_count\n";
+	print "Elasticsearch index count for dataset $datasetid: $es_count\n" if (defined $es_count);
+	
+	if (defined $es_count && $es_count != $ep_count)
+	{
+		print "\n";
+		print "Counts differ - please check if there are open index tasks in the\n";
+		print "repositorory's task queue. If difference persists, consider running\n";
+		print "ESadmin repair_index\n";
+	}
+	
+	return;
+}
+
+sub check_diffs
+{
+	my( $repo, $datasetid, $check_date ) = @_;
+	
+	my $list;
+	
+	my $dataset = $repo->dataset( $datasetid );
+	if( !defined $dataset )
+	{
+		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+		$repo->terminate;
+		exit( 1 );
+	}
+	
+	my $es_plugin = get_es_plugin( $repo );
+	
+	if (defined $check_date)
+	{
+		if ($check_date !~ /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)
+		{
+			print "Exiting due to invalid check date $check_date.\n" if( $noise >= 1 );
+			$repo->terminate;
+			exit( 1 );
+		}
+		
+		$check_date =~ s/T/ /g;
+		$check_date .= "-";
+		
+		my $searchexp = $dataset->prepare_search();
+		$searchexp->add_field(
+			fields => [
+				$dataset->field( 'lastmod' )
+			],
+			value => $check_date,
+			match => "EX",
+		);
+	
+		$list = $searchexp->perform_search;
+	}
+	else
+	{
+		$list = $dataset->search;
+	}
+	
+	$list->map(sub {
+		my( undef, $dataset, $item ) = @_;
+	
+		my $ret = $es_plugin->compare_index_item( $item );
+	});
+	
+	return;
+}
+
+
+=head1 AUTHOR
+
+Martin Brändle <martin.braendle@uzh.ch>, Zentrale Informatik, University of Zurich
+
+=head1 COPYRIGHT
+
+=for COPYRIGHT BEGIN
+
+Copyright 2020- University of Zurich.
+
+=for COPYRIGHT END
+
+=for LICENSE BEGIN
+
+This file is part of JDB/ZORA based on EPrints L<http://www.eprints.org/>.
+
+EPrints is free software: you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+EPrints is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with EPrints.  If not, see L<http://www.gnu.org/licenses/>.
+
+=for LICENSE END
+
+

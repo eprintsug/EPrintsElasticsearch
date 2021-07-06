@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!DOCTYPE phrases SYSTEM "entities.dtd">
+
+<epp:phrases xmlns="http://www.w3.org/1999/xhtml" xmlns:epp="http://eprints.org/ep3/phrase" xmlns:epc="http://eprints.org/ep3/control">
+
+  <epp:phrase id="fs_agg_accessrights">Zugangsrechte</epp:phrase>
+  <epp:phrase id="fs_agg_pubyear">Jahr</epp:phrase>
+  <epp:phrase id="fs_agg_name">Name</epp:phrase>
+  <epp:phrase id="fs_agg_pubtype">Dokumenttyp</epp:phrase>
+  <epp:phrase id="fs_agg_language">Sprache</epp:phrase>
+  <epp:phrase id="fs_agg_subject">Communities &amp; Collections</epp:phrase>
+  <epp:phrase id="fs_agg_dewey">DDC</epp:phrase>
+  <epp:phrase id="fs_agg_hasfulltext">Volltext</epp:phrase>
+  <epp:phrase id="fs_agg_journalseries">Journal</epp:phrase>
+  <epp:phrase id="fs_agg_affiliation">Affiliation</epp:phrase>
+
+  <epp:phrase id="fs_results"> Ergebnisse gefunden.</epp:phrase>
+  <epp:phrase id="fs_noresults"> Die Suche ergab keine Resultate. Bitte ändern Sie den Suchbegriff. </epp:phrase>
+  <epp:phrase id="fs_placeholder">Suche in allen Metadaten und im Volltext</epp:phrase>
+  <epp:phrase id="fs_autocomplete_title">Ergebnisse</epp:phrase>
+  <epp:phrase id="fs_simple_search">Einfache Suche (alte Version)</epp:phrase>
+  <epp:phrase id="fs_advanced_search">Erweiterte Suche</epp:phrase>
+  <epp:phrase id="fs_help">Hilfe</epp:phrase>
+  <epp:phrase id="fs_reset_all">Neue Suche</epp:phrase>
+  <epp:phrase id="fs_reset_filter">Lösche Filter</epp:phrase>
+  <epp:phrase id="fs_sortby">Sortierung nach</epp:phrase>
+  <epp:phrase id="fs_relevance">Relevanz</epp:phrase>
+  <epp:phrase id="fs_pageinfo_1">Ergebnisse</epp:phrase>
+  <epp:phrase id="fs_pageinfo_2">von</epp:phrase>
+  <epp:phrase id="fs_pageinfo_3">für</epp:phrase>
+  <epp:phrase id="fs_export">Export</epp:phrase>
+  <epp:phrase id="fs_show">Zeige</epp:phrase>
+  <epp:phrase id="fs_year_asc">Jahr (aufsteigend) </epp:phrase>
+  <epp:phrase id="fs_year_desc">Jahr (absteigend) </epp:phrase>
+
+  <epp:phrase id="es_agg_hasfulltext_yes">Ja</epp:phrase>
+  <epp:phrase id="es_agg_hasfulltext_no">Nein</epp:phrase>
+
+  <epp:phrase id="es_agg_access_rights_info:eu-repo/semantics/openAccess">Open Access</epp:phrase>
+  <epp:phrase id="es_agg_access_rights_info:eu-repo/semantics/closedAccess">Kein Zugang</epp:phrase>
+  <epp:phrase id="es_agg_access_rights_info:eu-repo/semantics/embargoedAccess">Nach Ablauf des Embargos</epp:phrase>
+  <epp:phrase id="es_agg_access_rights_info:eu-repo/semantics/restrictedAccess">Nur für UZH-Angehörige</epp:phrase>
+</epp:phrases>

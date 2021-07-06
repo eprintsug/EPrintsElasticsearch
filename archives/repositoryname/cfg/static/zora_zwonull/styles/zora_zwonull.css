@@ -1,0 +1,2810 @@
+﻿/************
+  Theme CSS 
+*************/
+body {
+font-size: 10px!important;
+}
+
+/********
+ Colours, in general UZH style
+********/
+
+/******* ZORA-498 Audit #30, #31 & UZH CD ******/
+a, a:visited {
+  color: #3353b7; /* BLAU 80 */
+}
+a:hover, a:focus, a:active {
+  color: #dc6027; /* OCKERROT 100 */
+  text-decoration: none;
+}
+a:focus {
+  outline: 2px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -1px; 
+}
+.panel-heading > h2 > a, .panel-heading > h2 > a:visited {
+  color: #ffffff; /* WEISS */
+}
+/******* ZORA-498 Audit #30, #31 & UZH CD END ******/
+
+#add_item {
+position: absolute;
+right: 2em;
+top: 6em; 
+width: auto;
+}
+#add_item_content {
+visibility: hidden;
+opacity: 0;
+-webkit-transition: visibility 0.2s linear, opacity 0.5s linear;
+-moz-transition: visibility 0.2s linear, opacity 0.5s linear;
+-o-transition: visibility 0.2s linear, opacity 0.5s linear;
+transition: visibility 0.2s linear,opacity 0.5s linear;
+}
+#add_item p {
+display: inline-block;
+width: 22em;
+}
+#add_item h3 {
+margin-top: 4px;
+}
+
+/**********
+  Top Bit   
+**********/
+
+/****** ZORA-498                       ******/
+/****** #10 structure and hidden h1-h6 ******/
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+/****** ZORA-498 END                   ******/
+
+/****** ZORA-498 #34 skiplinks ******/
+.skiplinks > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.skiplinks a {
+  position:absolute;
+  z-index:10000;
+  top:-9999px;
+  padding:5px 10px;
+}
+.skiplinks a:focus,.skiplinks a:active {
+  top:3px;
+  left:1px;
+  padding:10px;
+  right:auto;
+  min-width: 6em;
+  color: #0028a5;
+  font-size:120%;
+  background: #ffffff;
+  /*box-shadow: 3px 3px 1px #e38052;*/
+  outline: 2px dotted #0028a5;
+}
+/****** ZORA-498 #34 skiplinks END ******/
+
+#uzh-navbar {
+  border: none;
+  border-radius: 0;
+}
+.navbar {
+  min-height: 4em;
+  margin-bottom: 0!important;
+  background: #3353b7;
+}
+a.navbar-brand {
+  color: #fff!important;
+}
+#uzh-navbar, #uzh-navbackground a {
+  color: #3353b7;
+}
+.navbar-collapse {
+  border: none;
+  box-shadow: none;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #fff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+.navbar-default .navbar-toggle:focus .icon-bar , .navbar-default .navbar-toggle:hover .icon-bar {
+  background-color: #3353b7;
+}
+
+a:focus span.uzhicon {
+  background-color: #3353b7;
+}
+
+#topnav > ul > li.active {
+  display: none;
+}
+
+/********** mobile top-nav, icon-bar **********/
+div#main_title h1 {
+  font-size: 160%;
+}
+ 
+
+/********** mobile top-nav, icon-bar **********/
+#xs_header_icons {
+padding: 15px;
+font-size: 18px;
+line-height: 20px;
+height: 50px;
+float: left;
+}
+#xs_header_icons a {
+float: left;
+margin-right: 1em;
+}
+#xs_header_icons a img {
+height:40px;
+margin-top:-10px;
+margin-left:10px;
+}
+#xs_header_icons a span {
+color: #fff;
+font-size:200%;
+font-weight:500;
+width:100%;
+}
+#xs_header_icons a span.glyphicon-home:before {
+margin-right: 5px;
+}
+div.irstats2_ReportHeader_breadcrumbs {
+  width: 50%;
+  float: left;
+  padding-left: 15px;
+}
+div.irstats2_ReportHeader_timeline {
+  width: 50%;
+  float: left;
+  padding-right: 15px;
+  text-align: right;
+}
+
+
+/************
+ Social Icons
+************/
+
+.social-icons {
+}
+
+.uzhicon {
+background: url('/zora_zwonull/images/uzhicons.png') no-repeat;
+width: 26px;
+height: 39px;
+display: inline-block;
+margin-top:-10px;
+}
+
+.navbar-right li a {
+height: 40px;
+padding-left: 2px;
+padding-right: 2px;
+}
+.navbar-right li a:focus{
+  background: #ffffff;
+  color: black;
+}
+
+/***************
+ Left hand menu
+***************/
+
+#ep_menu_toggle {
+/* border-color: #0094d5; */
+border-color: #3353b7;
+}
+#ep_menu_toggle span.icon-bar {
+background-color: #3353b7;
+}
+
+li > a.uzh_logo {
+ margin:2px;
+ padding:0px;
+}
+a.uzh_logo {
+ width:100%;
+ margin:0px;
+ padding:0px;
+ z-index:30;
+}
+
+img.uzh_logo {
+ width:100%;
+ margin:0px;
+ padding:0px;
+ max-width:180px!important;
+}
+
+img#openaire_logo{
+ width:128px;
+ margin-bottom: 15px;
+}
+img.openaire_lookup{
+ vertical-align: text-bottom;
+}
+/* 2020/02/26/jw */
+th.openaire_lookup{
+ background-image:url(/zora_zwonull/images/OpenAIRE_lookup.png);
+ vertical-align: text-bottom;
+ background-repeat: no-repeat;
+ background-position: right center; 
+ background-size:20px;
+}
+
+/*
+th.openaire_lookup:after {
+   content: " (Lookup)";
+   background-image: url(/zora_zwonull/images/OpenAIRE_lookup.png);
+   background-size:20px;
+}
+*/
+
+
+.oai_logo { /* OAI Logo in XS */
+background-image:url(/images/hbz_kernsujet.png);
+ background-repeat: no-repeat;
+ background-position: right top;
+ background-size:200px;
+ padding-top:20px;
+ margin-top:20px;
+ padding-right:20px;
+ margin-right:20px;
+}
+
+/****** additional indexing in eprint_render.pl ZORA-507(14) ****/
+.dont-break-out{
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  word-break: break-all;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+
+/*************************************************/
+/*** HP-Features *********************************/
+/*************************************************/
+
+/**** homepage latest addition, search results ***/
+/**** bug-fix ZORA498-Audit #12 #14 **************/
+dl.ep_latest_tool_list,
+dl.ep_paginate_list{ 
+   display: grid;
+   grid-template-columns: auto;
+   width:100%;
+   float:left;
+   padding:0;
+   margin:0;
+}
+dl.ep_latest_tool_list > dt,
+dl.ep_latest_tool_list > dd,
+dl.ep_paginate_list > dt,
+dl.ep_paginate_list > dd { 
+   min-height:1.5em;
+}
+dt.dreiklang_title {
+   grid-column-start: 1;
+   font-size: 100%; 
+   font-weight:normal;
+   padding-top:0.75em;
+   margin:0;
+   /*border-top: 1px #3352b7 dashed;*/
+}
+dt.dreiklang_title:nth-of-type(1){
+   border-top: none;
+}
+dt.dreiklang_title span.result_text_order {
+   font-size: unset;
+}
+
+dd.dreiklang_oa_lock {
+   grid-column-start: 99;
+   grid-row: span 3;
+   float: right;
+   padding-top: 1.6em;
+   padding-bottom: 1em;
+   padding-right: 0.25em;
+   padding-left: 1em;
+}
+
+dd.dreiklang_img {
+   grid-column-start: 100;
+   grid-row: span 3;
+   float:right;
+   text-align: right;
+   margin:0;
+   padding-top: 1.5em;
+   padding-bottom: 1em;
+   padding-right: 1em;
+   padding-left: 0.25em;
+   font-size: 80%;
+}
+
+dd.dreiklang_publication,
+dd.dreiklang_author_year {
+   grid-column-start: 1;
+   font-size: 90%;
+   padding: 0;
+   margin: 0;
+}
+dd.dreiklang_publication:after {
+   content: "";
+   position:absolute;
+   border-bottom: 1px #3352b7 dashed;
+   padding-bottom: 0.5em;
+   clear: both;
+   display: table;
+}
+.dreiklang_abstract,
+.dreiklang_fulltext {
+   font-size: 90%;
+   padding: 0;
+   margin: 0;
+   padding-top: 1em;
+}
+
+.ep_search_controls, .ep_search_controls_bottom {
+  margin-top: 15px;
+}
+
+/**** ZORA-559 Manage deposits ****/
+table.ep_icontable {
+  margin-bottom: 1em;
+}
+
+table.ep_icontable th,td {
+  padding: 4px;
+}
+
+.ep_import_section {
+  margin-right: 2ex;
+}
+
+.ep_new_item_section {
+  margin-right: 2ex;
+}
+	
+/**** oa_news *********************/
+/**** bug-fix ZORA498-Audit #14 #18 ****/
+dl.oa_news_list{
+   width: 100%;
+   overflow: hidden;
+   padding: 0;
+   margin: 0;
+}
+dt.oa_news_item_date {
+   float: left;
+   clear: left;
+   width: 7em;
+   padding: 5px 0;
+   margin:0;
+   border-top: 1px #3352b7 dashed;
+}
+dd.oa_news_item_text {
+   overflow: hidden;
+   padding: 5px 0;
+   margin:0;
+   border-top: 1px #3352b7 dashed;
+}
+dt.oa_news_item_date:first-of-type {
+   border: none;
+}
+dd.oa_news_item_text:first-of-type {
+   border: none;
+}
+
+/**** ZORA-738 OA Locks ****/
+
+div.oa_status_float {
+  float: left;
+  height: 50px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+div.oa_status_clear {
+   clear: both;
+}
+
+p.oa_status_help {
+   overflow: hidden;
+}
+
+img.oa_lock_gold,img.oa_lock_green,img.oa_lock_hybrid {
+   width: 31px;
+   height: 40px;
+}
+
+img.oa_lock_closed {
+   width: 31px;
+   height: 37px;
+   margin-top: 3px;
+}
+
+/******** footer ***********************/
+div.uzh_footer.ep_noprint h3 {
+   margin-left: 0px;
+}
+/**** bug-fix ZORA498-Audit #17 ********/
+div.uzh_footer ul#data_policy {
+   list-style-type: none;
+   font-size: 12px !important;
+   margin-left: 0;
+   padding-left: 0;
+}
+div.uzh_footer p {
+   font-size: 12px !important;
+}
+
+/******** authorsnew date jump *********/
+/******** subjectsnew date jump *********/
+/******** bug-fix ZORA498-Audit #16 ****/
+div.ep_view_authorsnew_date_jump ul,
+div.ep_view_authorsnew_date_jump ul li,
+div.ep_view_subjectsnew_date_jump ul,
+div.ep_view_subjectsnew_date_jump ul li {
+   display: inline;
+   padding-left: 0;
+}
+div.ep_view_authorsnew_date_jump ul li:after,
+div.ep_view_subjectsnew_date_jump ul li:after { 
+   content: " | ";
+}
+div.ep_view_authorsnew_date_jump ul li:last-child:after,
+div.ep_view_sunjectsnew_date_jump ul li:last-child:after { 
+   content: " ";
+}
+
+/******** authorsnew group by **************/
+/******** bug-fix ZORA498-Audit #16 ****/
+div.ep_view_authorsnew_group_by{
+   text-align: center;
+   border-top: solid 1px #cccccc;
+   border-bottom: solid 1px #cccccc;
+   padding: 4px 0px;
+   margin: 4px 0px 12px 0px;
+}
+div.ep_view_authorsnew_group_by ul,
+div.ep_view_authorsnew_group_by ul li {
+   display: inline;
+   border: none;
+}
+div.ep_view_authorsnew_group_by ul li:after { 
+   content: " | ";
+}
+div.ep_view_authorsnew_group_by ul li:last-child:after { 
+   content: " ";
+}
+/******** authorsnew A-Z *****************/
+/******** bug-fix ZORA498-Audit #15 ******/
+div.ep_toolbox ul.ep_toolbox_a_z_ul,
+div.ep_toolbox ul.ep_toolbox_a_z_ul li {
+   display: inline;
+   border: none;
+   margin-left: 0;
+   padding-left: 0;
+}
+div.ep_toolbox ul.ep_toolbox_a_z_ul li:after { 
+   content: " | ";
+}
+div.ep_toolbox ul.ep_toolbox_a_z_ul li:last-child:after { 
+   content: " ";
+}
+
+/******** form, field, label ************************************************/
+/******** bug-fix ZORA498-Audit #20 #21 #23 #23 login, advanced search ******/
+label.label_tag {
+   margin-right: 0.5em;
+   margin-bottom: 0px;
+}
+table.ep_search_fields {
+   border-collapse: unset;
+}
+
+/******** feed box *****************/
+/******** bug-fix ZORA498-Audit #16 ******/
+div.ep_feed_box {
+}
+div.ep_feed_box ul.ep_feed_box_ul,
+div.ep_feed_box ul.ep_feed_box_ul li {
+   display: inline;
+   border: none;
+   margin-left: 1em;
+}
+div.ep_feed_box ul.ep_feed_box_ul li a {
+   text-decoration: none;
+   color: #888;
+}
+
+/******** statistics and top-download stuff: irstats2 *********/
+/******** bug-fix ZORA498-Audit #14 #18 ****/
+dl.irstats2_dl {
+   width: 100%;
+   overflow: hidden;
+   padding: 0;
+   margin: 0;
+}
+dl.irstats2_dl > dt,
+dl.irstats2_dl > dd { 
+   min-height:2.5em;
+}
+dt.irstats2_dt {
+   float: left;
+   clear: left;
+   position:relative;
+   width: calc(100% - 110px);
+   padding: 5px;
+   margin:0;
+   font-weight: normal;
+   border-top: 1px #3352b7 dashed;
+}
+dd.irstats2_dd {
+   float: right;
+   clear: right;
+   padding: 5px 0;
+   margin:0;
+   border-top: 1px #3352b7 dashed;
+}
+dl.irstats2_dl dt:first-of-type,
+dl.irstats2_dl dd:first-of-type {
+   border: none;
+}
+
+/******** ORCID Report ZORA-695 *********/
+dl.orcid_report_dl {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+
+dl.orcid_report_dl > dt,
+dl.orcid_report_dl > dd {
+  min-height: 2.0em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+dt.orcid_report_dt {
+  float: left;
+  margin: 0;
+  font-weight: normal;
+  border-top: none;
+}
+
+dd.orcid_report_dl_username, dd.orcid_report_dl_email {
+  float: left;
+  margin: 0;
+  border-top: none;
+}
+
+dt.orcid_report_dt:nth-child(n+2) {
+  border-top: 1px #3352b7 dashed;
+}
+
+dd.orcid_report_dl_username:nth-child(n+3),
+dd.orcid_report_dl_email:nth-child(n+4) {
+  border-top: 1px #3352b7 dashed;
+}
+
+/******** bug-fix ZORA498 export menue  ******/
+div.irstats2_export_content {
+   color: #000000;
+   background-color: #FFF;
+   border: 1px solid #D7D9E5;
+   margin-top: 0.5em;
+   margin-right: -1.1em;
+   margin-bottom: -0.8em;
+   margin-left: -1.1em;
+   padding-bottom: 0.5em;
+}
+div.irstats2_export_content select {
+   color: #000000;
+}
+
+/******** bug-fix ZORA498-Audit #49 ******/
+div.irstats2_new_box_modell ul.irstats2_reports_ul {
+   display: inline;
+   border: none;
+   margin: 0;
+   padding: 0;
+}
+div.irstats2_new_box_modell ul.irstats2_reports_ul  li{
+   display: block;
+   /*white-space: nowrap;*/
+   font-weight: normal;
+   font-size: larger;
+   border: none;
+   margin-left: 0.5em;
+   margin-right: 1em;
+}
+/******** bug-fix ZORA498-Audit #49 END ******/
+
+div.irstats2_table_options{
+  margin-top: 1ex;
+}
+
+.irstats2_table_row_even{
+  font-size:90%;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px #3352b7 dashed;
+  padding-top: 1ex;
+  padding-bottom: 1ex;
+  overflow:auto;
+}
+.irstats2_table_row_odd{
+  font-size:90%;
+  background-color: rgb(238, 238, 238);
+  border-bottom: 1px #3352b7 dashed;
+  padding-top: 1ex;
+  padding-bottom: 1ex;
+  overflow:auto;
+}
+div.irstats2_table_cell_order
+{
+  float: left;
+}
+div.irstats2_table_cell_count
+{
+  float: right;
+  margin-right: 0.5em;
+}
+div.irstats2_table_cell_object
+{
+  min-height: 2em;
+  margin-left: 0.5em;
+}
+div.irstats2_table_cell_object_citation
+{
+  padding-right: 1em;
+  float: right;
+}
+div.irstats2_table_row_even > div
+{
+  padding: 2px;
+  background-color: #FFFFFF;
+}
+div.irstats2_table_row_odd > div
+{
+  padding: 2px;
+  background-color: #EEE;
+}
+div#irstats2_datepicker_sd label,
+div#irstats2_datepicker_ed label,
+div#irstats2_datepicker_dr label{
+  font-weight: normal;
+}
+div#irstats2_datepicker_sd,
+div#irstats2_datepicker_ed{
+  margin-bottom: 0.5ex;
+  padding-left: 0;
+}
+div#irstats2_datepicker_dr{
+  margin-top: 1ex;
+  padding-left: 0;
+}
+div.irstats2_datepicker_inner label{
+  margin-left:1em;
+  margin-right:1em;
+}
+div.irstats2_datepicker_inner table{
+  border-collapse: collapse;
+  width:100%;
+}
+div.irstats2_datepicker_inner td {
+  font-weight: bold;
+  padding: 5px;
+  border:1px solid #CCC;
+}
+div.irstats2_datepicker_inner > table > tbody > tr > td {
+  border:none;
+}
+table.irstats2_keyfigures_progress div.irstats2_progress_wrapper {
+  height: 27px;
+}
+table.irstats2_keyfigures_progress div.irstats2_progress_wrapper {
+  height: 27px;
+}
+div.irstats2_view { 
+  width: auto;
+  margin-left:0px;
+  margin-right:0px;
+}
+div.irstats2_view_ReportHeader { 
+  width: auto;
+  margin-left: 24px;
+  margin-right: 12px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+div.irstats2_view_Google_GeoChart,
+div.irstats2_view_Google_Graph,
+div.irstats2_view_KeyFigures,
+div.irstats2_view_Grid {
+  width: auto;
+  margin-left: 24px;
+  margin-right: 12px;
+  padding-left: 0px;
+  padding-right: 0px;
+  /* border: 1px solid #D7D9E5; */ /* nice grey */
+}
+div#irstats2_filters_dates {
+  width: 100%;
+  margin-left: 0px;
+  margin-right: 32px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+div#irstats2_filters_dates legend{
+  font-size: medium;
+  margin-bottom: 0px;
+  padding-left: 0.5em;
+}
+div.irstats2_view_TopDownloadTopAuthors table td {
+  width: 50%;
+  vertical-align:top;
+}
+div.irstats2_view_ReportHeader {
+  width: auto;
+  margin-left: 24px;
+  margin-right: 12px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+div.irstats2_ReportHeader {
+  overflow: auto;
+}
+/* bradcrumbs here */
+div#irstats2_reports div.panel-uzh-fp {
+  min-height: 1em;
+}
+div#irstats2_filters_dates {
+  overflow: auto;
+}
+div#irstats2_filter_items {
+  width: 49%;
+  float: left;
+  margin-right: 1%;
+}
+div#irstats2_filters,
+div#irstats2_filter_content,
+div#irstats2_dates {
+  padding-left:0px;
+}
+div.irstats2_view_Grid {
+margin-left: auto;
+}
+div.irstats2_view_GridElement {
+  float: left;
+  margin-right: 0px;
+  margin-left: 1%;
+}
+div.irstats2_view_Grid div.irstats2_view_GridElement:first-child {
+ margin-right: 1%;
+ margin-left: 0px;
+}
+h2.irstats2_view_title span.glyphicon { /* ZORA-507(2) */
+  font-size:130%;
+  color: #ffffff;
+  position: relative;
+  float: right;
+  top: -0.2em;
+}
+h2.irstats2_view_title { /* ZORA-498(13) */
+  font-size:120%;
+  background-color: #3353b7;
+  color: #fff;
+  margin: 0px;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-radius: 0px !important;
+}
+h2.irstats2_view_title label { /* ZORA-498(13) */
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+h2.irstats2_view_title a:visited,
+h2.irstats2_view_title a:focus,
+h2.irstats2_view_title a:active {
+  outline: 0px;
+}
+div.irstats2_view td.datepicker_row { /* ZORA-498 */
+  width: 20em;
+}
+div.irstats2_view_content { /* ZORA-507(15) */
+  width: 100%;
+  width: auto;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+div#irstats2_filters select#set_name,
+div#irstats2_filters input.irstats2_placeholder,
+div#irstats2_filter_content select#set_name,
+div#irstats2_filter_content input.irstats2_placeholder { 
+  margin:5px;
+  padding:5px;
+}
+
+/******** ZORA-633 IRStats2 help ********/
+
+.panel-uzh-fp .ep_irstats2_help_toggle .fa-question-circle {
+  color: #ffffff;
+  margin-left: 10px;
+}
+.panel-uzh-fp .ep_irstats2_help_toggle .fa-minus-circle {
+  color: #ffffff;
+  margin-left: 10px;
+}
+
+
+/******** statistics and top-download stuff: irstats2 END ********/
+
+.result_row{
+font-size:90%;
+border-bottom: 1px #3352b7 dashed;
+min-height: 6em;
+margin-bottom: 1em;
+margin-left: 1em;
+margin-right: 1em;
+overflow: auto; /* clearfix hack */
+}
+.result_text{
+}
+.result_text_order{
+font-size:120%;
+}
+.result_text > a{
+color: #4298D8;
+}
+.result_text > a:hover, .hp_latest_text > a:visited{
+color: #336699;
+}
+.result_img{
+  padding-right:0.5em;
+  padding-left:0.5em;
+  text-align:right;
+  float:right;
+}
+
+.conwheel {
+  display: block;
+  outline: 0px;
+}
+
+.trendterms {
+  display: block; 
+  border: 1px solid #f0f0f0;
+  outline: 0px;
+}
+.panel-uzh-fp #trendterms_help_show .fa-question-circle {
+  color: #ffffff;
+}
+.panel-uzh-fp #trendterms_help_hide .fa-minus-circle {
+  color: #ffffff;
+}
+
+.panel-uzh-fp #collaborations_help_show .fa-question-circle {
+  color: #ffffff;
+}
+.panel-uzh-fp #collaborations_help_hide .fa-minus-circle {
+  color: #ffffff;
+}
+
+/*
+.collaboration-url {
+ background-image: url(/zora_zwonull/images/conwheelicon_24.png);
+ background-repeat: no-repeat;
+ background-position: left center;
+ background-size: 23px 24px;
+ padding: 4px 2px 4px 28px;
+ line-height: 24px;
+}
+*/
+
+img.collaboration-url {
+  vertical-align: middle;
+  margin-left:0px;
+  margin-right:0.25em;
+}
+
+/**** Author View ****/
+
+.ep_nodot {
+  list-style-type: none;
+}
+
+.author-cells {
+  display: table;
+  table-layout: fixed;
+}
+
+.author-cell-left {
+  display: table-cell;
+  line-height: 24px;
+  padding: 1px 4px 1px 0px;
+  min-width: 250px;
+  float: left;
+}
+
+.author-cell-right {
+  display: table-cell;
+  line-height: 24px;
+  padding: 1px 0px 1px 0px;
+  min-width: 150px;
+  float: right;
+}
+
+.ep_toolbox_content {
+  border-style: none;
+  border-bottom-style: solid; 
+}
+
+
+/**** ISIWOK Import Plugin ZORA-519 2016/09/21/mb ****/
+
+.isiwok_search {
+  margin: 5px 0px 10px 15px;
+}
+
+.isiwok_import {
+  margin: 8px 0px 5px 0px;
+}
+
+.isiwok_help {
+  border: 0px none black;
+  margin-bottom: 10px;
+}
+
+.isiwok_help td {
+  vertical-align: top;
+  text-align: left;
+  padding-right: 20px;
+}
+
+
+/****** Help-Pages ****/
+#help h2{
+margin-left:0px;
+}
+
+#help h3{
+margin-left:0px;
+}
+
+#help h4{
+margin-left:0px;
+}
+
+/****** RSS ****/
+.rss_icon{
+position: relative;
+float: right;
+line-height: 1em;
+top: -1.1em;
+}
+
+/****** Creators and Editors help ZORA-588 ****/
+#creators_editors_help_show, #creators_editors_help_hide {
+position: relative;
+float: right;
+line-height: 1em;
+top: -2em; 
+left: 3em; 
+}
+#creators_editors_button{
+}
+#creators_editors_body{
+margin: 1em;
+}
+
+/****** TrendTerms help out of heading ZORA-498 ****/
+#trendterms_help_show, #trendterms_help_hide {
+position: relative;
+float: right;
+line-height: 1em;
+top: -1.3em;
+}
+#article-network #trendterms_help_show,
+#article-network #trendterms_help_hide {
+position: relative;
+float: right;
+line-height: 1em;
+top: -1.5em;
+}
+#article-network #trendterms_heading {
+margin-top: 2em;
+margin-left: -0.5em;
+margin-bottom: -0.5em;
+}
+
+/****** ConWheel help out of heading ZORA-498 ****/
+#collaborations_help_show, #collaborations_help_hide {
+position: relative;
+float: right;
+line-height: 1em;
+top: -1.3em;
+}
+
+/****** Admin Special: new color, unbold and resize some stuff JV ****/
+.ep_form_field_input label {
+  font-weight: normal;
+}
+/* spaeter , genauer 
+dt {
+  font-weight: normal;
+}
+*/
+
+/* JV ZORA-491 funding */
+span.funding_name_lookup{
+  background-color:#D96200;
+  color:white; 
+  padding: .1em 0.3em 0.1em 0.3em;
+  border-radius: .25em;
+  font-weight: normal;
+}
+span.funding_acronym_lookup{
+  background-color:#5cb85c;
+  color:white;
+  padding: .1em 0.3em 0.1em 0.3em;
+  border-radius: .25em;
+}
+span.funding_number_lookup{
+  background-color:#777777;
+  color:white;
+  padding: .1em 0.3em 0.1em 0.3em;
+  border-radius: .25em;
+}
+div.funding_title_lookup{
+  padding: .1em;
+}
+li.simple_funding_output{
+  border-bottom: dashed 1px #bbf;
+  margin-bottom: 0.25em;
+  min-height: 0.5em;
+}
+img.logo16{
+  height: 16px;
+}
+.hide_funding_part {
+    display: none;
+}
+
+/* mb ZORA-679 related item lookup */
+span.related_item_id_lookup {
+  background-color:#777777;
+  color:white;
+  padding: .1em 0.3em 0.1em 0.3em;
+  border-radius: .25em;
+}
+
+div.related_item_title_lookup {
+  padding: .1em;
+}
+
+#related_items_heading {
+  margin-top:1ex;
+  margin-left:0px;
+  padding-top:0px;
+}
+
+div.related_item {
+  margin-top: 0.5ex;
+}
+
+/* mb ZORA-736 hide correspondence / affiliation fields */
+.hide_affiliation_part {
+  display: none;
+}
+
+/* mb ZORA-736 affiliation rendering */
+div.affiliations {
+  margin-bottom: 5px;
+}
+
+/* subject_tree */
+dt.ep_subjectinput_tree {
+  color: #0028a5;
+  display: block;
+  background-image: none!important;
+}
+dt.ep_subjectinput_tree a {
+  padding-left: 0.5em;
+}
+dt.ep_subjectinput_tree:active,
+dt.ep_subjectinput_tree:focus,
+dt.ep_subjectinput_tree:hover {
+  color: #dc6027;
+}
+
+/* buttons add/remove from subject-list */
+input.ep_subjectinput_remove_button,
+input.ep_subjectinput_add_button {
+background-color: #3353b7;
+color: #fff;
+font-size: 0.75em;
+font-weight: normal;
+line-height: 1.42857143;
+text-align: center;
+vertical-align: middle;
+cursor: pointer;
+border: 1px solid transparent;
+margin: 2px;
+}
+input.ep_form_internal_button {
+margin: 2px;
+padding: 2px;
+}
+/* some lists more narrow */
+dl.ep_field_set_long > dt  {
+margin-bottom: 0px;
+}
+dl.ep_field_set_long > dd  {
+margin-left: 2em;
+margin-bottom: 0px;
+padding-bottom: 0px;
+}
+/* admin edit workflow section */
+table.ep_blister_bar{
+}
+table.ep_blister_bar input.ep_blister_node_selected{
+}
+table.ep_blister_bar input.ep_blister_node{
+border-color: darkgrey;
+background-color: lightgrey;
+color: black!important;;
+}
+/* admin edit item */
+div.ep_sr_component div.panel-heading{ /* JV: ZORA-440#66 */
+border-color: #ddd;
+background-color: #ddd;
+color: black!important;
+}
+div.ep_sr_show_help span.glyphicon{ /* JV: ZORA-440#67 */
+font-size: 120%;
+color: #3353b7;
+}
+div.ep_sr_component span.glyphicon{ /* JV: ZORA-440#68 */
+font-size: 120%;
+color: #3353b7;
+}
+div.ep_sr_collapse_bar a.ep_sr_collapse_link{ /* JV: ZORA-506 (2.6) */
+color: #3353b7;
+}
+div.ep_sr_title a.ep_sr_collapse_link{ /* JV: ZORA-506 (2.6) */
+color: #3353b7;
+}
+.star-design {
+  color: #ff8700!important;
+}
+
+/* JV: ZORA-506 (17) */
+table.compound_render_value {
+}
+table.compound_render_value td, table.compound_render_value th {
+  border: lightgrey solid 1px;
+  padding-left: 0.2em;
+  padding-right: 2em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+/* JV: ZORA-506 (18) */
+table td.ep_row, table th.ep_row { 
+  padding: 0.25em;
+}
+
+/* JV: ZORA-534 */
+.valign_top { 
+  vertical-align: top;
+}
+
+
+/* export bar eprint_render.pl */
+div#export_bar {
+  padding: 0px;
+  margin-bottom: 2em;
+}
+
+
+/* export section for search, year, creator, collection, DDC ZORA-534 */
+table.export_section { 
+  width: 100%;
+}
+table.export_section td.left { 
+   text-align:left;
+   padding-left: 2em;
+
+}
+table.export_section td.right { 
+   text-align:right;
+   padding-right: 2em;
+}
+div.ep_search_export table.export_section td.left,
+div.ep_search_export table.export_section td.right { 
+   padding-left: 0;
+   padding-right: 1em;
+}
+
+/* admin review section ZORA-507 (1.7) */
+div.ep_search_results table tr td.ep_columns_cell_last ul.ep_action_list li img { 
+  vertical-align: baseline;
+}
+
+/* admin history section ZORA-507 (1.5) */
+.ep_search_results td { 
+  padding: 0px;
+  border: none;
+}
+.ep_paginate_list {
+  display: block;
+}
+
+/* admin manage deposits ZORA-507 */
+div.ep_search_results table tr td.ep_columns_cell:first-child, 
+div.ep_search_results table tr td.ep_columns_alter:first-child { 
+  border-left-style: none; 
+}
+button.deposit_move_rows {
+  font-size: 10px; 
+}
+span.deposit_move_rows {
+  line-height: inherit;
+  font-size: 10px; 
+}
+
+/* admin action section */
+table td.ep_title_row, table th.ep_title_row { /* JV: ZORA-507 (1) */
+  /* Test
+  padding: 0.25em;
+  border: orange solid 1px;
+  */
+}
+
+/* admin upload section */
+div.ep_upload_doc_title_bar table table td{ 
+padding-left: 0.2em;
+padding-right: 0.2em;
+}
+div.UploadMethod_file_container > input{
+margin-left: auto;
+margin-right: auto;
+}
+div.UploadMethod_file_container > input.ep_form_internal_button{
+display: none; /* spaeter wieder anzeigen, sobald fehler in drag & drop gefunden */
+}
+
+pre.history_xmlblock { /* ZORA-507(1.5) */
+   margin:  0 0 0 0;
+   padding: 3px 3px 3px 3px;
+/* 
+   border-left: 1px dashed black;
+   border-bottom: 1px dashed black;
+*/
+   border-radius: 0px;
+}
+
+/* ZORA-635 mb */
+div.ep_items_filters_export {
+   line-height: 50px;
+   text-align: center;
+}
+
+div.ep_items_filters {
+   display: inline-block;
+   margin: 0px 10px 0px auto; 
+   padding: 0;
+   vertical-align: middle;
+}
+
+div.ep_items_export_section {
+   display: inline-block;
+   margin: 0 auto 0px 10px;
+   padding: 0;
+   vertical-align: middle;
+}
+
+/* ZORA-650 mb */
+div.ep_saved_search_control {
+   display: inline-block;
+   margin: 0;
+   padding: 0;
+   vertical-align: middle;
+}
+
+span.ep_saved_search_id {
+   margin-left: 10px;
+}
+
+span.ep_saved_search_title {
+   margin-left: 10px;
+}
+
+span.ep_saved_search_error {
+   padding: 4px;
+}
+
+span.ep_saved_search_warning {
+   padding: 4px;
+}
+
+/* ZORA-724 jw */
+.fs-search-form {
+    margin-top: 0.5em;
+    margin-bottom: 4em;
+}
+#fs-loader {
+padding: 5em;
+text-align: center;
+}
+.hide-agg {
+    display: none;
+}
+.highlight_query {
+    background-color: lightgreen;
+    font-style: italic;
+}
+
+
+
+/****** Admin Special - END ****/
+
+/****** Tree-View in XS Media closer on the left side ****/
+/****** see a few rows later for more scace sm-ld (JV) ***/
+.container-fluid > div.ep_view_menu {
+   margin-left:1em;
+   padding-left:0em;
+}
+.container-fluid > div.ep_view_menu > ul{
+   margin-top:1em;
+   margin-left:0px;
+   padding-left:1em;
+}
+/* browse year don't need this
+ * browse collection could need this
+.container-fluid > div.ep_view_menu > ul > li:first-child {
+   list-style: none;
+   margin-left:-1em;
+   padding-left:-1em;
+}
+*/
+.container-fluid > div.ep_view_menu > ul > li:first-child > ul {
+   list-style: disc;
+   margin-left:1em;
+   padding-left:0em;
+}
+.container-fluid > div.ep_view_page {
+   margin:1em;
+   padding:1em;
+}
+
+/****** Tree-View in XS Media closer on the left side END ****/
+@media screen and (min-width:768px){
+   .container-fluid > div.ep_view_menu ul{
+      margin-left:2em;
+      padding-left:1em;
+   }
+   .container-fluid > div.ep_view_menu > ul > li:first-child > ul {
+      margin-left:2em;
+      padding-left:1em;
+   }
+   div.ep_toolbox ul.ep_toolbox_a_z_ul,
+   div.ep_toolbox ul.ep_toolbox_a_z_ul li {
+      margin-left: 0;
+      padding-left: 0;
+   }
+}
+/****** END Tree-Views ******/
+
+/****** TrendTerms und ConnectionWheel Special ******/
+
+/* (en|de)/phrases/collaborations.xml */
+#content_cw {
+  margin: 0px auto 0px auto;
+  width: 400px;
+  padding: 0px;
+  /* overflow: none; => no css-standard 2016-09-13 jv */
+  background-color: #ffffff;
+}
+
+/* (en|de)/phrases/trendterms_graph.xml */
+#content_tt {
+  margin: 0px auto 0px auto;
+  width: 300px;
+  padding: 0px;
+  /* overflow: none; => no css-standard 2016-09-13 jv */
+  background-color: #ffffff;
+}
+
+/* eprint_render.pl: TrendTerms box mb  */
+#trendterms_heading {
+  margin-top:1ex;
+  margin-left:0px;
+  padding-top:0px;
+}
+
+/* eprint_render.pl: TrendTerms box jv  */
+div#trendterms {
+  padding:0px;
+}
+
+/* eprint_render.pl: TrendTerms help mb  */
+.trendterms_glyphicon {
+  color:black !important; 
+  font-size:0.7em !important;
+}
+
+.ep_only_js_trendterms {
+  float:right;
+}
+
+/* eprint_render.pl: Collaborations box mb  */
+div#collaborations {
+  margin-top:0px;
+  padding:0px;
+}
+
+#collaborations_heading {
+  margin:0px;
+  padding-top:0px;
+}
+
+div.authcollab_inline {
+  display: inline-block;
+  margin-top:2px;
+  margin-right:1em;
+}
+
+/* eprint_render.pl: Collaborations help mb  */
+.collaborations_glyphicon {
+  color:white !important;
+  font-size:1em !important;
+}
+
+/* eprint_render.pl: CORE Recommender mb */
+#recommendations_heading {
+  margin-top:2ex;
+  margin-left:0px;
+  padding-top:0px;
+}
+
+.ep_only_js_collaborations {
+  float:right;
+}
+
+#collaborations_help_inner {
+  padding: 0.5ex 1ex 0.5ex 1ex;
+}
+/****** TrendTerms und ConnectionWheel Special END ******/
+
+
+/****** UZH CHANGE ZORA-724 2020/12/jw sui / es-gui */
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-loader {
+    width: 100%;
+    height: 100%;
+/*
+    display: "flex";
+    justifyContent: "right";
+    alignItems: "right";
+*/
+    padding: 1em;
+    padding-left: 35%;
+    text-align: "center";
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+div.App div.sui-layout-header {
+   border-bottom: none;
+   padding: 16px 24px;
+}
+
+div.App div.sui-layout-body {
+   border-top: 1px solid #eee;
+}
+
+fieldset.sui-facet legend.sui-facet__title {
+   margin-bottom: 0px !important;
+}
+
+.sui-select {
+   font-size: 120% !important;
+}
+
+i.text-danger {
+   color:#dc6027;
+}
+
+/* Export Plugins CSS */
+.export_plugins_select{
+   width: 12em !important;
+   font-weight: 400;
+   margin-top: 0;
+   padding-right: 5px !important;
+
+   line-height: 1.5;
+   font-size: 120%;
+
+   background-color: #f8f8f8;
+   border-radius: 4px;
+}
+.export_plugins_select [class*="-placeholder"]{
+   font-weight: 700;
+   color:rgb(51,51,51);
+}
+.export_plugins_select [class*="-indicatorContainer"]{
+   color:rgb(51,51,51);
+   padding: 6px;
+}
+.export_plugins_select [class*="-menu"] > div {
+   color:rgb(51,51,51);
+   background-color: white;
+   /*width: 200px;*/
+   width: 12em;
+}
+.export_plugins_select [class*="-menu"] > div> div {
+   color:rgb(51,51,51);
+   background-color: white;
+}
+.export_plugins_select [class*="-menu"] > div> div:hover {
+   color:rgb(51,51,51);
+   font-weight: 700;
+   background-color: #f8f8f8;
+}
+.export_plugins_select [class*="-singleValue"]{
+   font-weight: 700;
+   color:rgb(51,51,51);
+}
+.export_plugins_select > div > div {
+   width: 100%; 
+   color:rgb(51,51,51);
+   background-color: #f8f8f8;
+   border: 1px solid #a6a6a6;
+   border-radius: 4px;
+   display: flex;
+   align-items: stretch;
+   justify-content: space-between;
+}
+.export_plugins_select div div div span[class*="-indicatorSeparator"] {
+   display: none;
+}
+img.export-loader-img{
+   position: absolute;
+   /* position: fixed; */ /* or absolute */
+   top: 50%;
+   left: 50%;
+   width: 10%;
+   z-index:1000;
+}
+
+.sui-sorting{
+   /* width: 25% !important; */
+   width: 12em !important;
+}
+
+.sui-sorting .sui-select{
+  margin-top: 0;
+  padding-right: 5px !important;
+}
+
+.sui-result {
+  padding: 0 0 !important;
+  margin-top: 15px !important;
+}
+
+.sui-result__header a .sui-result__title,
+.sui-result__header a:visited .sui-result__title {
+  font-size: 150%;
+  font-weight: bolder;
+  color: #3353b7;
+}
+
+.sui-result__details {
+  width: 100%;
+}
+
+.sui-paging-info {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.sui-multi-checkbox-facet__checkbox {
+  margin-right: 0.5em !important;
+}
+
+.sui-select__single-value {
+   font-family: Arial, Helvetica, FreeSans, sans-serif;
+}
+
+input.sui-search-box__submit{
+   padding: 6px 12px;
+   font-size: 14px;
+   font-family: Arial, Helvetica, FreeSans, sans-serif;
+   margin-left: 20px;
+   border-radius: 3px;
+   background: #3353b7;
+}
+
+input.sui-search-box__submit:hover{
+   background: #0028a5;
+}
+
+select#export_plugins {
+   border: none;
+   background: rgb(248, 248, 248);
+}
+
+div#reset_filter{
+   padding: 6px 12px;
+   margin: 0px 0px 10px 0px;
+   font-size: 14px;
+   font-weight: 700;
+   font-family: Arial, Helvetica, FreeSans, sans-serif;
+   border-radius: 4px;
+   border-color: rgb(166, 166, 166);
+   /* color: white; /*
+   color: rgb(51, 51, 51);
+   /*background: #3353b7; */
+   background: rgb(248, 248, 248);
+}
+
+div#reset_filter:hover{
+   /* background: #0028a5; */
+   color: rgb(51, 51, 51);
+   background: rgb(248, 248, 248);
+}
+
+div#reset_filter a, 
+div#reset_filter a:visited,
+div#reset_filter a:active {
+   /* color: white; */
+   color: rgb(51, 51, 51);
+   background: rgb(248, 248, 248);
+   font-weight: 700;
+}
+
+div#export{
+   /* padding: 6px 12px; */
+   padding-left: 5px;
+   padding-right: 5px;
+   margin: 0px 0px 0px 0px;
+   font-size: 14px;
+   font-weight: 700;
+   font-family: Arial, Helvetica, FreeSans, sans-serif;
+   border-radius: 4px;
+   border-color: rgb(166, 166, 166);
+   color: rgb(51, 51, 51);
+   background: rgb(248, 248, 248);
+}   
+
+div#export span#export_tiny {
+}
+
+div#export:hover{
+   /* background: #0028a5; */
+   color: rgb(51, 51, 51);
+   background: rgb(248, 248, 248);
+}
+
+div#export a, 
+div#export a:visited,
+div#export a:active {
+   color: rgb(51, 51, 51);
+   background: rgb(248, 248, 248);
+   font-weight: 700;
+}
+
+span#beta:after {
+   content: " Beta";
+   background: yellow;
+   padding: 3px;
+   border-radius: 16px;
+}
+
+input.sui-search-box__text-input{
+   padding: 6px 12px;
+   font-family: Arial, Helvetica, FreeSans, sans-serif;
+   font-weight: normal;
+   color: rgb(85, 85, 85);
+   border-radius: 0px;
+}
+
+div.sui-search-box__autocomplete-container{ 
+   margin-top: 0px;
+   padding-top: 5px;
+}
+
+div.sui-search-box__autocomplete-container ul li:hover,
+div.sui-search-box__autocomplete-container ul li:hover em { 
+   color: #000000;
+   background: rgba(37,139,248,.08)
+}
+
+ul.sui-result__details li dl.dreiklang{ 
+   display: grid;
+   grid-template-columns: auto;
+   width: 100%;
+   margin-bottom: 0px;
+}
+ul.sui-result__details li dl.dreiklang > a{ 
+   display: none; /* dreiklang ugly bugfix No 1 */
+   border: 1px double red;
+}
+ul.sui-result__details li dl.dreiklang dt.dreiklang_title  {
+   /*border: 1px solid green;*/
+   grid-column-start: 1;
+   font-size: 120%;
+   padding-top: 0px;
+}
+ul.sui-result__details li dl.dreiklang dd.dreiklang_oa_lock  {
+   /*border: 1px solid blue;*/
+   grid-column-start: 99;
+   grid-row: span 3;
+   width: 70px;
+   padding-top: 10px;
+}
+ul.sui-result__details li dl.dreiklang dd.dreiklang_img  {
+   /*border: 1px solid lime;*/
+   grid-column-start: 100;
+   grid-row: span 3;
+   width: 90px;
+   padding-top: 10px;
+}
+ul.sui-result__details li dl.dreiklang dd.dreiklang_abstract  {
+   /*border: 1px solid lime;*/
+   grid-column-start: 1;
+   grid-row: span 3;
+}
+ul.sui-result__details li dl.dreiklang dd.dreiklang_fulltext  {
+   /*border: 1px solid lime;*/
+   grid-column-start: 1;
+   grid-row: span 3;
+}
+
+ul#search_more_panel {
+   list-style: none;
+   padding-left: 10px;
+   padding-top: 3px;
+   padding-bottom: 0px;
+}
+ul#search_more_panel li{
+   display: inline; /* li nebeneinander anzeigen */
+   font-size: 12px;
+   margin-right: 1em;
+}
+/****** UZH CHANGE ZORA-724 2020/12/02/jw sui / es-gui END */
+
+
+/* UZH CHANGE ZORA-676 2018/07/27/mb Lightbox file upload */
+
+div.ep_block.files_box {
+  font-size: 14px;
+}
+
+div.ep_block.convert_box {
+  font-size: 14px;
+}
+
+div.files_box_action_buttons {
+  margin-top: 10px;
+}
+
+div.convert_box_action_buttons {
+  margin-top: 10px;
+}
+
+/* END UZH CHANGE ZORA-676 */
+
+
+/****** Social Media JV *****/
+div#social-media-bar {
+padding: 0px;
+margin: 0px;
+}
+.mod-social {
+padding: 0px;
+margin-left: -3px;
+margin-top: 20px;
+}
+.mod-social h2 {
+  position: absolute;
+  font-size: 0;
+  visibility: hidden;
+}
+.mod-social ul {
+padding: 0px;
+margin: 0px;
+}
+.mod-social ul:empty {
+  display: none;
+}
+.mod-social li {
+  list-style-type: none;
+  display: inline-block;
+  margin-left: 0.2em;
+}
+.mod-social li a {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  overflow: hidden;
+}
+/* Icons taken from http://www.position-relative.com/2012/graphics/free-social-media-icon-set-1/ */
+.mod-social li .facebook:before {
+  content: "";
+  display: inline-block;
+  background: url(/zora_zwonull/images/social-media/32x32/32x32-facebook.png) no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+}
+.mod-social li .linkedin:before {
+  content: "";
+  display: inline-block;
+  background: url(/zora_zwonull/images/social-media/32x32/32x32-linkedin.png) no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+}
+.mod-social li .mail:before {
+  content: "";
+  display: inline-block;
+  background: url(/zora_zwonull/images/social-media/32x32/32x32-email.png) no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+}
+.mod-social li .rss:before {
+  content: "";
+  display: inline-block;
+  background: url(/zora_zwonull/images/social-media/32x32/32x32-rss.png) no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+}
+.mod-social li .twitter:before {
+  content: "";
+  display: inline-block;
+  background: url(/zora_zwonull/images/social-media/32x32/32x32-twitter.png) no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+}
+.mod-social li .gplus:before {
+  content: "";
+  display: inline-block;
+  background: url(/zora_zwonull/images/social-media/32x32/32x32-gplus.png) no-repeat 0 0;
+  width: 32px;
+  height: 32px;
+}
+@media print {
+  .mod-social {
+    display: none;
+  }
+}
+/****** Social Media ENDE *****/
+
+/***** ORCID ZORA-116 *****/
+
+/*
+a.orcid-url {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.orcid-url:before {
+  content: "";
+  display: inline-block;
+  background: url(/zora_zwonull/images/orcid_16x16.png) no-repeat 0 0;
+  width: 16px;
+  height: 16px;
+}
+*/
+
+img.orcid-url {
+  vertical-align: text-bottom;
+  margin-left:0.25em;
+  margin-right:0.5em;
+}
+
+.orcid-batch {
+  display: inline-block;
+  background: url(/zora_zwonull/images/orcid_16x16.png) no-repeat 0 0;
+  width: 16px;
+  height: 16px;
+}
+
+.orcid-source {
+  margin-top: 0.5em;
+}
+
+.orcid-person .orcid-tooltip {
+  left: -115px;
+  bottom: -28px;
+}
+
+.orcid {
+  position: relative;
+}
+
+.orcid:hover .orcid-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.orcid-tooltip {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background-color: #a6ce39;
+  border: 1px solid #aaa;
+  white-space: pre;
+  max-width: none;
+  text-align: center;
+  padding: 1px 5px 1px 5px;
+  color: #fff;
+  border-radius: 0px;
+}
+
+.orcid-person .orcid-tooltip:before {
+  top: -65%
+}
+
+.orcid-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    height: 13px;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #aaa transparent;
+}
+
+/****** Wartungsfenster *****/
+div.zora_maintenance{
+border: solid orange 2px;
+margin-left: 1em;
+margin-right: 1em;
+margin-top: 0.5em;
+margin-bottom: 0.5em;
+padding: 0.5em;
+font-weight: bold;
+}
+span.zora_maintenance_xs{
+margin: 0px;
+margin-right: 1em;
+float: right;
+font-weight: normal;
+}
+/****** Wartungsfenster ENDE *****/
+
+/****** Multiple Versions *****/
+div.multiple_versions{
+  border: solid 1px #3353b7;
+  display: grid; /* später ggf. flow-root https://css-tricks.com/display-flow-root/ */
+  margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+/****** Multiple Versions ENDE *****/
+
+/****** JDB Lookup *****/
+div.ep_drop_target{
+z-index:99;
+}
+div.ep_drop_target > ul > li:hover {
+color: #000;
+background-color: orange;
+}
+div.ep_drop_target > ul > li.selected {
+color: #000;
+background-color: orange;
+}
+/****** JDB Lookup ENDE *****/
+
+/****** download table2div ******/
+#download_header {
+  margin-top:1ex;
+  margin-left:0px;
+  padding-top:0px;
+}
+
+#download_heading{
+  float: left;
+  padding-top: 10px;
+  margin-left: 0px;
+}
+
+.download_heading_oa {
+  float: right;
+  vertical-align: middle;
+  margin-right: 0px;
+}
+
+#download_div,#nofulltext {
+  clear: both;
+}
+
+
+.download_row {
+  margin-top: 0.5em;
+  overflow: auto; /* clearfix hack */
+}
+.download_cell {
+  min-width:90px;
+  float: left;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  padding-right: 0.5em;
+}
+.download_img {
+}
+.download_info {
+}
+.download_req, .download_download {
+clear: both;
+margin-bottom: 1.5ex;
+}
+/****** download table2div ENDE******/
+
+/****** search in nav ******/
+#repo_search {
+  padding-top: 1em;
+}
+/****** search in nav END ******/
+
+/****** main in general ******/
+main#page {
+  margin: 0;
+  padding: 0;
+  min-height: 20em;
+  font-size:14px; 
+}
+/****** main in general END ******/
+
+/****** footer in general ******/
+footer {
+  margin: 0;
+  font-size:14px; 
+}
+.icon-float-no-padding {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+/****** footer in general END ******/
+
+/****** LG, MD, SM size shows more... ******/
+@media screen and (min-width:768px){
+
+main#page {
+  margin: 1em;
+  margin-top: 0px;
+  padding-right: 2em;
+}
+
+footer {
+  margin: 1em;
+}
+
+#topnav > ul > li.active {
+        display: block;
+}
+
+#uzh-navbar, #uzh-navbackground a {
+   color: #fff;
+}
+
+/*
+#main_page {
+        margin-top: 1em;
+        min-height: 20em;
+}
+*/
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+header {
+border-bottom: 1px solid #eee;
+}
+.navbar {
+font-size: 10px;
+font-family: Arial, Helvetica, FreeSans, sans-serif;
+height: 3em;
+}
+.navbar a {
+text-decoration: none;
+-webkit-transition: all 0.15s ease-in-out;
+-moz-transition: all 0.15s ease-in-out;
+-ms-transition: all 0.15s ease-in-out;
+-o-transition: all 0.15s ease-in-out;
+transition: all 0.15s ease-in-out;
+color: #fefefe;
+font-family: Arial, Helvetica, FreeSans, sans-serif;
+display: inline-block;
+text-align: center;
+}
+
+.navbar-header a, #topnav a {
+font-size: 1em;
+}
+
+#topnav > ul > li.active > a, #topnav > ul > li:hover > a, #adminnav > ul > li.active > a, #adminnav > ul > li:hover > a, .navbar-header a:hover, .social-icons-container li a:hover {
+  background: #0028a5!important;
+  color: #ffffff;
+}
+#topnav > ul > li > a:focus, #adminnav > ul > li > a:focus {
+  color: #0028a5!important;
+  background:#ffffff;
+  text-decoration: none;
+  outline: 2px dotted #000000;
+}
+.navbar-header a:hover {
+  background: #0028a5!important;
+}
+a.uzh_logo:hover, a.uzh_logo:active, a.uzh_logo:focus, img.uzh_logo:hover {
+  background: transparent!important;
+}
+
+li.no-hover:hover > a {
+  background: none!important;
+}
+.navbar-brand, #topnav > .navbar-left > li > a, #topnav > .navbar-right > li > a,.navbar-brand, #topnav > .navbar-nav > li > span {
+ padding-top: 10px!important;
+ padding-bottom: 10px!important
+}
+
+#lowernav {
+padding-right:100px;
+margin-top: 10px!important;
+position: relative;
+}
+
+#lowernav .logo-wrapper {
+float: left
+}
+
+#lowernav ul {
+margin-top:-10px;
+margin-left:10px;
+}
+#lowernav li > a {
+text-decoration: none;
+font-size: 1em;
+color: #3353b7;
+font-family: Arial, Helvetica, FreeSans, sans-serif;
+font-weight: bold;
+display: inline-block;
+padding: 0.875em 1.15em 1em;
+-webkit-transition: -webkit-transform, 0.15s, ease-in-out;
+-moz-transition: -moz-transform, 0.15s, ease-in-out;
+-o-transition: -o-transform, 0.15s, ease-in-out;
+transition: transform, 0.15s, ease-in-out;
+}
+
+.oai_logo { 
+background-image:url(/images/hbz_kernsujet.png);
+ background-repeat: no-repeat;
+ background-position: right center;
+ background-size:100px;
+ padding:0px;
+ padding-right:200px;
+ margin-right:20px;
+}
+
+/****** admin menue from vertical to horizontal ******/
+#adminnav {
+position: relative;
+background-color:#3353b7;
+padding:0px;
+}
+#adminnav .logo-wrapper {
+float: left
+}
+#adminnav li > a , #adminnav-user li > a {
+float: left;
+text-decoration: none;
+color: #fff;
+font-family: Arial, Helvetica, FreeSans, sans-serif;
+font-size: 1em;
+display: inline-block;
+/*padding-top: 0.5em;*/
+padding-right: 1em;
+/*padding-bottom: 0.5em;*/
+padding-left:1em;
+-webkit-transition: -webkit-transform, 0.15s, ease-in-out;
+-moz-transition: -moz-transform, 0.15s, ease-in-out;
+-o-transition: -o-transform, 0.15s, ease-in-out;
+transition: transform, 0.15s, ease-in-out;
+}
+#adminnav li > a:hover , #adminnav-user li > a:hover, adminnav > ul > li.active > a, #adminnav > ul > li:hover > a, .navbar-header a:hover, .social-icons-container li a:hover {
+  background: #0028a5!important;
+  color: #ffffff;
+}
+/* ZORA-498#10: new nav structure needs new nesting */
+#adminnav li > a > a {
+  color:#fff;
+}
+/****** admin menue from vertical to horizontal ENDE ******/
+
+/****** eprint_render.pl: more/less JV ****/
+#more_less{
+text-align: left;
+margin: 1em auto 0em auto;
+}
+
+/****** eprint_render.pl: doi box  JV ****/
+#doi_box{
+padding:0px;
+}
+
+#doi_cb_box{
+padding-right:3em;
+text-align:center;
+}
+
+#summary_id_link_copy_button{
+right: -1px;
+top: -1px;
+}
+
+/****** eprint_render.pl: citation box  JV ****/
+#citation_box{
+margin-bottom:20px;
+padding:0px;
+}
+
+p.citation_cb_p{
+   text-align:center;
+   padding-right:5em;
+}
+
+#citation_cb_copy_button{
+   top: 0px;
+}
+
+/****** two column in eprint_render.pl ******/
+div.e2_column_left{
+   margin-top: 0px;
+   padding-top:0px;
+}
+
+div.e2_column_right{
+margin-top: 0px;
+padding-top:0px;
+border-left: 1px dotted lightgrey;
+}
+
+/****** eprint_render.pl Dimensions.ai badge ZORA-630 mb ******/
+
+div.ep_dimensions_box {
+  display:inline-block;
+  vertical-align:middle;
+}
+
+span.ep_dimensions_ai {
+  margin-bottom: 10px;
+  float: left;
+}
+
+span.ep_dimensions_text {
+  margin-left: 10px;
+  line-height: 64px;
+}
+
+img.__dimensions_png {
+  width: 72px;
+  height: 72px;
+}
+
+div.ep_citation_counts {
+  clear: both;
+}
+
+/****** index.xpage ******/
+#intro_text{
+  margin-left:1em;
+  margin-right:1em;
+  padding-bottom:0px;
+}
+
+/******** bug-fix ZORA498-Audit #49 ******/
+div.irstats2_new_box_modell ul.irstats2_reports_ul {
+   display: inline;
+   border: none;
+   margin-left: 1em;
+   margin: 0.25em;
+   padding-left: 0;
+}
+div.irstats2_new_box_modell ul.irstats2_reports_ul li {
+   display: inline;
+   /*white-space: nowrap;*/
+   font-weight: normal;
+   font-size: larger;
+   border: none;
+   margin-right: 1em;
+   padding: 0;
+}
+/******** bug-fix ZORA498-Audit #49 END ******/
+
+/****** User Info and Logout  in Top-Navi - special handling (JV) ******/
+/****** Language ul instead of div in Top-Navi - special handling (JV) ******/
+.lang_first, #lia_user, #lia_user > a {
+padding-right:1px!important;
+margin-right:1px!important;
+}
+.lang_next, #lia_logout > a {
+padding-right:1px!important;
+margin-right:1px!important;
+padding-left:2px!important;
+margin-left:1px!important;
+border-left:1px solid;
+}
+#lia_logout > a {
+padding-right:1px!important;
+margin-right:1px!important;
+padding-left:2px!important;
+margin-left:1px!important;
+}
+
+abbr[title], abbr[data-original-title] {
+  border-bottom: none !important;
+  cursor: inherit !important;
+  text-decoration: none !important;
+}
+
+}
+/****** LG, MD, SM size shows more... ENDE ******/
+
+#lowernav li > a:hover {
+border: 0 none;
+color: #dc6027;
+text-transform: none;
+}
+
+
+/****** login form *****/
+table#uzh_login_form {
+  margin: auto;
+}
+table#uzh_login_form tbody tr td {
+  padding: 0.5em;
+}
+legend#uzh_login {
+  display: inline;
+  font-style: normal;
+  font-size: 100%;
+  border: none;
+}
+
+/************ prime stuff ************/
+
+.panel-uzh-prime, .panel-uzh-fp {
+border-radius: 0!important;
+}
+.panel-uzh-fp > .panel-body {
+border-top: 1px solid #ddd!important
+}
+.panel-uzh-prime > .panel-heading, .panel-uzh-fp > .panel-heading {
+  background-color: #3353b7;
+  color: #fff;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom: 0px solid transparent!important
+}
+
+.btn-uzh-prime {
+  background-color: #3353b7;
+  color: #fff;
+  border-radius: 3px!important;
+  margin-left: 5px; /* ZORA-507(1) */
+}
+.btn-uzh-prime:hover {
+  background-color: #0028a5;
+  color: #fff;
+}
+.btn-uzh-prime:focus {
+  background-color: #0028a5;
+  color: #fff;
+  text-decoration: none;
+  outline: 2px dotted #ffffff;
+}
+
+a.btn-uzh-prime:visited {
+  color: #fff
+}
+
+.btn-uzh-data {
+  background-color: #FF8700!important;
+  color: #fff
+}
+.btn-uzh-data:hover {
+  background-color: #BF6500!important;
+  color: #fff
+}
+.btn-uzh-rxxr {
+  background-color: #3353b7!important;
+  color: #fff
+}
+.btn-uzh-rxxr:hover {
+  background-color: #005e9f!important;
+  color: #fff
+}
+.btn-uzh {
+  background-color: #005e9f;
+  color: #fff!important;
+  border-radius: 3px!important;
+}
+.btn-uzh:hover {
+  background-color: #3353b7!important;
+  color: #fff;
+}
+
+.btn-uzh-file-upload {
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/************
+ ZORA-588: New Views ( Year Creators Communities & Collections DDC )
+*************/
+#creators_editors_searchview {
+  margin-top: 1ex;
+  padding-top: 1ex;
+}
+#creators_editors_searchview ul{
+  list-style: none;
+  padding-left: 0;
+}
+#creators_editors_searchview ul li .orcid-batch {
+  margin-right: 0.5ex;
+  margin-bottom: -0.25ex;
+}
+#creators_editors_searchview > ul > li {
+  border-bottom: 1px #3352b7 dashed;
+  margin: 1em;
+  clear: both;
+  content: "";
+/*
+   position:absolute;
+   border-bottom: 1px #3352b7 dashed;
+   padding-bottom: 0.5em;
+   display: table;
+*/
+}
+/*
+#creators_editors_searchview ul li:nth-of-type(1)
+{
+}
+*/
+#creators_editors_searchview > ul > li.ep_first {
+  border: none;
+}
+#creators_editors_searchview ul li span{
+  padding: 1ex;
+}
+
+/************
+ ZORA-711: Sherpa Romeo permissions lookup component
+*************/
+
+table.permissions_table {
+  margin-top: 10px;
+}
+
+tr.permissions_table_row {
+  border-bottom: 1px #3352b7 dashed;
+}
+
+th.permissions_cell {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  font-weight: bold;
+  border-right: 1px #3352b7 dashed;
+  width: 16%;
+}
+
+td.permissions_cell {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  font-weight: normal;
+}
+
+th.permissions_cell.yes, td.permissions_cell.yes {
+  background-color: #e6ffe6;
+}
+
+th.permissions_cell.no, td.permissions_cell.no {
+  background-color: #ffe6e6;
+}
+
+th.permissions_cell.additionalfee, td.permissions_cell.additionalfee {
+  background-color: #e6e6e6;
+}
+
+td.permisions_cell.srpolicy {
+  float: right;
+  padding-right: 5px;
+}
+
+th.copyright_cell.rp, td.copyright_cell.rp {
+  background-color: #e6ccff;
+}
+
+span.permissions_cell {
+  padding-right: 5px;
+}
+
+span.permissions_cell.allowed_yes.glyphicon {
+  font-size: 30px;
+  color: #008000;
+}
+
+span.permissions_cell.allowed_no.glyphicon {
+  font-size: 30px;
+  color: #ff0000;
+}
+
+span.permissions_cell.allowed_additionalfee.glyphicon {
+  font-size: 15px;
+  color: #daa520;
+}
+
+span.permissions_cell.allowed_notspecified.glyphicon, 
+span.permissions_cell.allowed_unknown.glyphicon {
+  font-size: 30px;
+}
+
+span.permissions_cell.embargo.fa, 
+conditions.fa, 
+span.permissions_cell.license.fa {
+  font-size: 18px;
+}
+
+table.copyright_table {
+  margin-top: 0px;
+}
+
+tr.copyright_table_row {
+  border-bottom: 1px #3352b7 dashed;
+}
+
+th.copyright_cell {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  border-right: 1px #3352b7 dashed;
+  font-weight: bold;
+  width: 16%;
+}
+
+td.copyright_cell {
+  margin: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  font-weight: normal;
+  width: 84%:
+}
+
+tr.copyright_table_row:last-child {
+  border-bottom: none;
+}
+
+dfn.permission-tooltip {
+  font-style: normal;
+}
+
+.permission-tooltip {
+  position: relative;
+  color: #3353b7;
+  cursor: help; 
+}
+
+.permission-tooltip:hover {
+  color: #dc6027;
+  text-decoration: none;
+}
+
+.permission-tooltip span[role=permission-tooltip],
+.permission-tooltip span[role=permission-allowed-tooltip] {
+  display: none;
+}
+
+.permission-tooltip:hover span[role=permission-tooltip] {
+  display: block;  
+  position: absolute; 
+  bottom: 2em;
+  left: 0em;
+  width: 14em;
+  padding: 0.5em;
+  z-index: 100;
+  color: #050505;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  background-color: #fcf8e3;
+  border: solid 1px #e7c418;
+  border-radius: 4px;
+}
+
+.permission-tooltip:hover span[role=permission-allowed-tooltip] {
+  display: block;
+  position: absolute;
+  bottom: 3em;
+  left: 0em;
+  width: 14em;
+  padding: 0.5em;
+  z-index: 100;
+  color: #050505;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  background-color: #fcf8e3;
+  border: solid 1px #e7c418;
+  border-radius: 4px;
+}
+
+
+/************
+ Latest Page
+*************/
+
+ul#latest_tool {
+margin-top: 8em;
+}
+.panel-card {
+margin-left: 15px;
+margin-right: 15px;
+min-height: 4em;
+height: auto;
+}
+.panel-card i {
+  font-size: 3em;
+}
+
+div.ep_latest_result {
+   margin-left: 1em;
+   margin-right: 1em;
+}
+
+/************ statistics4eprint_render.pl *************/
+.stats-div { margin-left: 10px; margin-right: 10px; }
+.statistics-floating-div {
+  float: left;
+  padding: 0px;
+}
+    
+.statistics-clearfix-div:before,
+.statistics-clearfix-div:after {
+  content: " "; display: table;
+}
+.statistics-clearfix-div:after {
+  clear: both;
+}
+
+/* .statistics-clearfix-div { *zoom: 1; } */
+
+/************
+ for print use print classes: http://getbootstrap.com/css/#responsive-utilities-print
+*************/
+
+/********
+ Initial CSS stuff (from template)
+*********/
+
+#page h1{
+   background-color: #3353b7!important;
+   border-radius: 0px !important;
+}   
+.panel-uzh-fp .panel-heading,.panel-uzh-prime .panel-heading {
+   background-color: #3353b7;
+   color: #fff;
+   border-radius: 0px!important;
+}
+.modal-content {
+   border-radius: 0px!important;
+}
+.trim {
+   border-color: #3353b7;
+}
+.shadow {
+   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.border {
+   border: 0px solid #3353b7!important;
+   border-radius: 0px;
+}
+.borderbottom {
+   border-bottom: 0px solid #3353b7!important;
+}
+.navbar {
+   border-radius: 0px;
+}
+.ep_tm_footer,.uzh_footer {
+   border-color: #005e9f!important;
+}
+.nav-pills li a {
+   border-radius: 0px!important;
+}
+#file_aside div.rd_citation_right {
+   box-shadow: -20px 0px 10px -7px rgba(0,0,0,0.5);
+   border: 0px solid #3353b7!important;
+}
+.displayblock {
+   display: block!important
+}
+.static-block {
+   margin: 10px;
+}
+/********
+ Initial CSS stuff ends
+*********/

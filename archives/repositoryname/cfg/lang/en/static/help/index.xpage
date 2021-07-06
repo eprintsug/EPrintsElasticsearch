@@ -1,0 +1,422 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE page SYSTEM "entities.dtd" >
+<xpage:page xmlns="http://www.w3.org/1999/xhtml" xmlns:xpage="http://eprints.org/ep3/xpage" xmlns:epc="http://eprints.org/ep3/control">
+  <xpage:title><epc:phrase ref="archive_name"/> : Help </xpage:title>
+  <xpage:body>
+<div id="help" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 summary-widget">
+    <h2>Table of Contents</h2>
+    <ul>
+      <li>
+        <a href="#Searching">Searching</a>
+      </li>
+      <li>
+        <a href="#FacetedSearch">Faceted Search</a>
+        <ul>
+ 	  <li>
+            <a href="#FS_Query">Search terms</a>
+          </li>
+          <li>
+            <a href="#FS_Facets">Facets</a>
+          </li>
+	  <li>
+            <a href="#FS_Results">Results and status bar</a>
+          </li>
+          <li>
+            <a href="#FS_Advanced_Options">Extended functionalities</a>
+            <ul>
+              <li>
+                <a href="#FS_Operators">Search Operators</a>
+              </li>
+              <li>
+                <a href="#FS_PhraseSearch">Phrase Searches</a>
+              </li>
+              <li>
+                <a href="#FS_Wildcards">Wildcards</a>
+              </li>
+              <li>
+                <a href="#FS_Fields">Fields</a>
+              </li>
+              <li>
+                <a href="#FS_Examples">Examples</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#AdvancedSearch">Advanced Search</a>
+        <ul>
+          <li>
+            <a href="#WildcardsAdvanced">Wildcards</a>
+          </li>
+          <li>
+            <a href="#TermCombination">Matching Terms within a Field</a>
+          </li>
+          <li>
+            <a href="#FieldCombination">Match Conditions for Fields</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#Browsing">Index Browsing</a>
+      </li>
+      <li>
+        <a href="#Display">Display of Results</a>
+      </li>
+      <li>
+        <a href="#OA">Open Access Type</a>
+      </li>
+      <li>
+        <a href="#ORCID">ORCID</a>
+      </li>
+      <li>
+        <a href="https://www.hbz.uzh.ch/en/open-access-und-open-science/ZORA-fuer-submitter-und-editoren.html">Submitting Documents to ZORA</a>
+      </li>
+      <li>
+        <a href="https://www.cms.uzh.ch/de/documentation/components/zora.html">Creating Publication Lists</a> (Help only in German)
+      </li>
+    </ul>
+
+    <h2 id="Searching">Searching</h2>
+    <p>ZORA offers a faceted search (standard) and an advanced search. In most cases, the facetted search will provide the best results. The search slot is embedded in the header of all ZORA pages. The advanced search is needed when a term or a term or a specific property in a specific field.</p>
+
+    <h2 id="FacetedSearch">Faceted Search</h2>
+    <p>The faceted search uses a probabilistic search engine. Terms entered are reduced to their stem. Stop words (insignificant words) are filtered. Searches are made in the PDF full text, in the bibliographic information (authors/editors, year, title, journal title), in the abstract and in other fields.</p>
+
+ <h3 id="FS_Query">Entering search terms</h3>
+    <p>The faceted search is integrated in the form of a simple search slot on all ZORA pages in the header. Enter one or more search terms. Example: "Protein". Several terms are automatically used as search criteria via AND linking. Example: "Protein losing nephropathies".</p>
+
+    <p>As you enter the search term, autocompletion is activated from the 3rd character onwards, which provides you with the best possible result suggestions; only the title is displayed in the suggestion list. In the title display you will see the search terms highlighted, but there may also be hits in the abstract, full text or metadata, which is why no highlighting is visible in the suggestion list. Pressing the Enter key or using the "Search" button starts the search. If you click on one of the items in the suggestion list, a search for all terms of the selected title is initiated (Google-like).</p>
+
+
+    <h3 id="FS_Facets">Facets
+<img src="facets.png" style="width:200px; float:right;"/>
+</h3>
+<p>Facets are used to filter search results very similar to online stores, Google or Google Scholar.</p>
+
+<p>Facets help to filter the search result by selecting specific metadata. The filters are selected criteria such as Publication Year, name (author, editor, contributor), Communities &amp; Collections, Document Type, Full Text, Access Rights (Open Access, No Access, only for UZH, after expiry of embargo), Journal, DDC (subject area), Language, Affiliation. Each newly selected facet leads to a new search query with just this filter criterion. The expected number of hits is displayed in brackets next to the individual filter characteristics.</p>
+
+<h3 id="FS_Results">Results and status bar</h3>
+<p>The status bar allows you to re-sort the displayed results, export the results of the search (max. 1000 records at once) or set the length of the results list to 10 (50 or 100) hits. In between, status information is displayed.</p>
+
+<p>For each hit, the metadata, the Open Access status and, if applicable, a PDF preview are displayed. In addition, text excerpts from abstract and full text are displayed. Full text excerpts from locked PDFs are only displayed with UZH login. Search terms are highlighted.</p>
+
+<p>Note: Formula representations can be displayed if the author has marked them accordingly in the publication (LaTeX notation / Mathjax). Example: "annihilation decay mode".</p>
+
+
+<h3 id="FS_Advanced_Options">Extended functionalities</h3>
+
+<h4 id="FS_Operators" class="zora_help_h4">Search Operators</h4>
+
+    <table class="ep_columns" style="margin-left: 10px; margin-right: 10px; padding:4px;">
+      <thead>
+        <tr class="header_plain">
+          <th class="ep_columns_title" style="width:10%;">Operator</th>
+          <th class="ep_columns_title" style="width:60%;">Beschreibung</th>
+          <th class="ep_columns_title">Beispiele</th>
+        </tr>
+      </thead>
+ <tbody>
+        <tr>
+          <td class="ep_columns_cell">AND</td>
+          <td class="ep_columns_cell">standard, can also be omitted</td>
+          <td class="ep_columns_cell">Blut AND Blood</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">OR</td>
+          <td class="ep_columns_cell" />
+          <td class="ep_columns_cell">Blut OR Blood</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">NOT</td>
+          <td class="ep_columns_cell" />
+          <td class="ep_columns_cell">Blut NOT Blood</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">()</td>
+          <td class="ep_columns_cell">Combination and brackets</td>
+          <td class="ep_columns_cell">Protein AND (Blut OR Blood)</td>
+        </tr>
+      </tbody>
+</table>
+
+
+<h4 id="FS_PhraseSearch" class="zora_help_h4">Phrase search</h4>
+
+<p>Terms in quotes are searched for exactly as they are written and in the order in which they appear.</p>
+
+<h4 id="FS_Wildcards" class="zora_help_h4">Wildcards</h4>
+
+    <table class="ep_columns" style="margin-left: 10px; margin-right: 10px; padding:4px;">
+      <thead>
+        <tr class="header_plain">
+          <th class="ep_columns_title" style="width:10%;">Wildcard</th>
+          <th class="ep_columns_title" style="width:60%;">Meaning</th>
+          <th class="ep_columns_title">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ep_columns_cell">*</td>
+          <td class="ep_columns_cell">0 or more characters</td>
+          <td class="ep_columns_cell">Pro*in</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">?</td>
+          <td class="ep_columns_cell">exactly one character</td>
+          <td class="ep_columns_cell">Prot?in, Pro??in</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 id="FS_Fields" class="zora_help_h4">Fields</h4>
+    <p>Individual fields can be searched directly with the following field abbreviation:</p>
+
+ <table class="ep_columns" style="margin-left: 10px; margin-right: 10px; padding:4px;">
+      <thead>
+        <tr class="header_plain">
+          <th class="ep_columns_title" style="width:10%;">Field</th>
+          <th class="ep_columns_title" style="width:60%;">Meaning</th>
+          <th class="ep_columns_title">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ep_columns_cell">AB</td>
+          <td class="ep_columns_cell">Abstract</td>
+          <td class="ep_columns_cell">AB:Protein</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">AF</td>
+          <td class="ep_columns_cell">Affiliation</td>
+          <td class="ep_columns_cell">AF:"University of Zurich"</td>
+        </tr>
+ <tr>
+          <td class="ep_columns_cell">AU</td>
+          <td class="ep_columns_cell">Author</td>
+          <td class="ep_columns_cell">AU:Witzel</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">BT</td>
+          <td class="ep_columns_cell">Book Title</td>
+          <td class="ep_columns_cell">BT:"Kommunikationsforschung"</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">CC</td>
+          <td class="ep_columns_cell">Community &amp; Collection</td>
+          <td class="ep_columns_cell">CC:"Soziologisches Institut"</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">CO</td>
+          <td class="ep_columns_cell">Country</td>
+          <td class="ep_columns_cell">CO:Switzerland</td>
+        </tr>
+<tr>
+          <td class="ep_columns_cell">CS</td>
+          <td class="ep_columns_cell">Chair Subject (freies, internes Kürzel)</td>
+          <td class="ep_columns_cell">CS:cBehr0</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">DOI</td>
+          <td class="ep_columns_cell">Digital Object Identifier</td>
+          <td class="ep_columns_cell">DOI:10.1096/fj.01-0496fje</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">EPID</td>
+          <td class="ep_columns_cell">Eprint ID (single or range)</td>
+          <td class="ep_columns_cell">EPID:10000, EPID:10000-12000, EPID:10000-, EPID:-12000</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell"></td>
+          <td class="ep_columns_cell">[] = inclusiv, {} = exclusiv, {],[} = mix</td>
+          <td class="ep_columns_cell">EPID:[10000 TO 12000], EPID:{10000 TO 12000], EPID:[10000 TO 12000}</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">FA</td>
+          <td class="ep_columns_cell">Volltext verfügbar (1,0)</td>
+          <td class="ep_columns_cell">FA:1</td>
+        </tr>
+<tr>
+          <td class="ep_columns_cell">IS</td>
+          <td class="ep_columns_cell">Number (Issue Number)</td>
+          <td class="ep_columns_cell">IS:123</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">ISBN</td>
+          <td class="ep_columns_cell">International Standard Book Number</td>
+          <td class="ep_columns_cell">ISBN:978-3-658-03304-0</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">ISSN</td>
+          <td class="ep_columns_cell">International Standard Serial Number</td>
+          <td class="ep_columns_cell">ISSN:0925-2738</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">JT</td>
+          <td class="ep_columns_cell">Journal Title</td>
+          <td class="ep_columns_cell">JT:"BMC Microbiology"</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">KW</td>
+          <td class="ep_columns_cell">Keyword</td>
+          <td class="ep_columns_cell">KW:Protein</td>
+        </tr>
+ <tr>
+          <td class="ep_columns_cell">NA</td>
+          <td class="ep_columns_cell">Name (=AU)</td>
+          <td class="ep_columns_cell">NA:Meyer</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">OA</td>
+          <td class="ep_columns_cell">Open Access Status (green, gold, hybrid, closed)</td>
+          <td class="ep_columns_cell">OA:green</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">ORCID</td>
+          <td class="ep_columns_cell">Open Researcher and Contributor ID</td>
+          <td class="ep_columns_cell">ORCID:0000-0003-3631-635X</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">ORG</td>
+          <td class="ep_columns_cell">Organisation (=AF)</td>
+          <td class="ep_columns_cell">ORG:"University of Zurich"</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">PB</td>
+          <td class="ep_columns_cell">Publisher</td>
+          <td class="ep_columns_cell">PB:"BioMed Central"</td>
+        </tr>
+<tr>
+          <td class="ep_columns_cell">PG</td>
+          <td class="ep_columns_cell">Page</td>
+          <td class="ep_columns_cell">PG:100</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">PMID</td>
+          <td class="ep_columns_cell">PubMed ID</td>
+          <td class="ep_columns_cell">PMID:12097144</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">PY</td>
+          <td class="ep_columns_cell">Year of publication (single or range)</td>
+          <td class="ep_columns_cell">PY:2015, PY:2015-2017, PY:2015-, PY:-2017</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell"></td>
+          <td class="ep_columns_cell">[] = inclusiv, {} = exclusiv, {],[} = mix</td>
+          <td class="ep_columns_cell">PY:[2015 TO 2017], PY:{2015 TO 2017], PY:[2015 TO 2017}</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">RL</td>
+          <td class="ep_columns_cell">Role (creator, editor, examiner)</td>
+          <td class="ep_columns_cell">RL:examiner</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">SE</td>
+          <td class="ep_columns_cell">Series Title</td>
+          <td class="ep_columns_cell">SE:"Beiträge des Instituts für Rechnungswesen und Controlling"</td>
+        </tr>
+<tr>
+          <td class="ep_columns_cell">TI</td>
+          <td class="ep_columns_cell">Title</td>
+          <td class="ep_columns_cell">TI:"Proteine und Vitamine"</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">TY</td>
+          <td class="ep_columns_cell">Type (Journal Article,
+Dissertation,
+Book Section,
+Conference or Workshop Item,
+Habilitation,
+Edited Scientific Work,
+Monograph,
+Published Research Report,
+Scientific Publication in Electronic Form,
+Newspaper Article,
+Working Paper)</td>
+          <td class="ep_columns_cell">TY:"Working Papers"</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">VL</td>
+          <td class="ep_columns_cell">Volume</td>
+          <td class="ep_columns_cell">VL:100</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+<h4 id="FS_Examples" class="zora_help_h4">More examples</h4>
+
+    <table class="ep_columns" style="margin-left: 10px; margin-right: 10px; padding:4px;">
+      <thead>
+        <tr class="header_plain">
+          <th class="ep_columns_title" style="width:40%;">Query ...</th>
+          <th class="ep_columns_title">Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ep_columns_cell">AU:Müller AND PY:201*</td>
+          <td class="ep_columns_cell">all publications with author name Müller and publication year from 2010 - 2019</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">TI:Protein AND PY:2015-2017</td>
+          <td class="ep_columns_cell">all titles in which the word "Protein" appears and  publication year from 2015 - 2017.</td>
+        </tr>
+        <tr>
+          <td class="ep_columns_cell">JT:Frontiers*</td>
+          <td class="ep_columns_cell">all journal titles in which the word "Frontiers" appears.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="AdvancedSearch">Advanced Search</h2>
+    <p>Advanced Search provides several fields from ZORA. By clicking the "?" button at the respective field, a short explanation about the field and its allowed contents can be displayed.
+      In Advanced Search terms are always matched exactly, except if wildcards are used.</p>
+
+    <h4 id="WildcardsAdvanced" class="zora_help_h4">Wildcards</h4>
+    <p>Allowed wildcards are % (matching exactly 1 character) or * (matching 0 or any number of characters).</p>
+
+    <h4 id="TermCombination" class="zora_help_h4">Matching Terms within a Field</h4>
+    <p>A drop down menu in front of a field allows to choose between "all of" (all terms must match, Boolean AND) or "any of" (any of the terms can match, Boolean OR). Default is "all of".</p>
+
+    <h4 id="FieldCombination" class="zora_help_h4">Match Conditions for Fields</h4>
+    <p>At the bottom of the form, at "Retrieved records must fulfill", a drop down menu allows to choose between "all of these conditions" (Boolean AND search) and "any of these conditions" (Boolean OR search). Default is "all of these conditions".</p>
+    <br/>
+    
+    <h2 id="Browsing">Index Browsing</h2>
+    <p>Publications can be browsed using five different indexes:</p>
+    <ul>
+      <li><a href="/view/yearnew/">Publication Year</a></li>
+      <li><a href="/creators_editors.html">Creators &amp; Editors</a> - Names can be looked up by entering a family name, one or several initials, and/or an ORCID iD. For the index, names are merged into distinct family names and initials(s), e.g. publications having Muster, Katharina or Muster, Karl as authors are merged into one index entry Muster, K (fuzzy search). An additional index entry is created for names that have an ORCID iD, e.g. Muster, K 0000-0001-2345-6789, and all name variants for this ORCID iD are listed, e.g. Muster, Katharina Esther, Muster Katharina E, Muster Katharina. A precise publication list can be obtained from this index entry. Therefore, tagging your publications with your <a href="#ORCID">ORCID iD</a> is recommended.</li>
+      <li><a href="/view/subjectsnew/">Communities &amp; Collections</a> - Faculties, institutes, selected journals and special collections.</li>
+      <li><a href="/view/dewey">Dewey Decimal Classification (DDC)</a> - Publications are classified automatically based on their communities assignment and in addition manually by the submitters. General subjects (first 3 digits) are used only. About 90% of the publications have a DDC assignment.</li>
+      <li><a href="/view/scopussubjects/">Scopus Subject Areas</a> - Publications are classified automatically with fine-grained Scopus Subject Areas if they have an equivalent record in Scopus. About 50% of the publications have a Scopus Subject Area classification.</li>
+    </ul>
+    <br/>
+
+    <h2 id="Display">Display of Results</h2>
+    <p>After searching using Search, results are initially ordered by relevance (occurence, weight, frequency and position of matching query terms). In Advanced Search, results are initially sorted in reverse chronological order (newest documents first). 
+      In Advanced Search, order by relevance is not available. The hits can be reorderd choosing sort options from a drop down menu.</p>
+    <br/>
+
+    <h2 id="OA">Open Access Type</h2>
+    <epc:phrase ref="help:oa_types" />
+    <br/>
+
+    <h2 id="ORCID">ORCID</h2>
+    <p>ZORA integrates ORCID.</p>
+    <ul>
+      <li><a href="https://www.hbz.uzh.ch/en/open-access-und-open-science/grundlagen-hintergruende/ORCID.html">Information by the Main Library on ORCID</a></li>
+      <li><a href="https://www.hbz.uzh.ch/en/open-access-und-open-science/grundlagen-hintergruende/ORCID/orcid-checkliste.html">Step-by-step instructions</a></li>
+      <li><a href="https://www.hbz.uzh.ch/en/open-access-und-open-science/grundlagen-hintergruende/ORCID/faq-orcid-allgemein.html">FAQs ORCID in general</a></li>
+      <li><a href="https://www.hbz.uzh.ch/en/open-access-und-open-science/ZORA-fuer-submitter-und-editoren/faqs-zu-zora/orcid-und-zora.html">FAQs on ORCID and ZORA</a></li>
+    </ul>
+    <br/>
+
+    <h2><a href="https://www.hbz.uzh.ch/en/open-access-und-open-science/ZORA-fuer-submitter-und-editoren.html">Submitting Documents to ZORA</a></h2>
+    <h2><a href="https://www.cms.uzh.ch/de/documentation/components/zora.html">Creating Publication Lists</a> (Help only in German)</h2>
+
+</div>
+  </xpage:body>
+</xpage:page>

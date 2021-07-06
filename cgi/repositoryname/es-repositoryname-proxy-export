@@ -1,0 +1,147 @@
+#!/usr/bin/perl
+###############################################################################
+# es-{repositoryname}-proxy-export for original {repositoryname} collection on ES
+#
+# 	proxy between react-client and elastic search server to handle
+# 	authorization, search and export (only)
+#
+# 	2021/03/22/jw: initial, do export
+# 	2021/03/23/jw: num export - more than shown, max es->max_export
+# 	2021/03/23/jw: replace unwanted special chars in query
+# 	2021/03/29/jw: set es->request_timeout high enough for expensive exports
+###############################################################################
+
+use warnings;
+use strict;
+use Search::Elasticsearch;
+use EPrints;
+use FileHandle;
+use Encode;
+use utf8;
+use JSON;
+use CGI;
+use CGI qw(:standard);
+
+# initial configs, connect2es
+my $session = EPrints::Session->new();
+exit(0) unless ( defined $session );
+my $es_scheme   = $session->get_repository->get_conf( "es", "scheme" );
+my $es_client   = $session->get_repository->get_conf( "es", "client" );
+my $es_host     = $session->get_repository->get_conf( "es", "host" );
+my $es_port     = $session->get_repository->get_conf( "es", "port" );
+my $es_path     = $session->get_repository->get_conf( "es", "path" );
+my $es_index    = $session->get_repository->get_conf( "es", "index" );
+my $es_userinfo = $session->get_repository->get_conf( "es", "info", "user" );
+my $es_cxn      = $session->get_repository->get_conf( "es", "cxn" );
+my $es_max_export      = $session->get_repository->get_conf( "es", "max_export" );
+my $es_request_timeout = $session->get_repository->get_conf( "es", "request_timeout" );
+
+my @nodes;
+
+foreach my $node (@$es_host)
+{
+	push @nodes, {
+		scheme   => $es_scheme,
+		host     => $node,
+		port     => $es_port,
+		userinfo => $es_userinfo,
+		path     => $es_path.$es_index,
+	};
+}
+
+#use Data::Dumper;
+#my $filename_dumper = '/usr/local/eprints/var/es-{repositoryname}-proxy.log';
+#open( my $fh_dumper, '>>', $filename_dumper )
+  #or die "Could not open file '$filename_dumper' !";
+#print $fh_dumper Dumper  "*** $0 starts ****************";
+
+# use plugin
+my $repo =  EPrints->new()->current_repository;
+my $plugin = get_proxy_plugin( $repo );
+
+# read json request
+my $json_request_browser = $plugin->get_browser_request($session);
+
+# dump in/out
+#print $fh_dumper Dumper  "*** request: *******************";
+#print $fh_dumper Dumper $json_request_browser;
+#print $fh_dumper Dumper  "*** request ends *******************";
+
+# auth and contact ES
+my $es = eval {
+    Search::Elasticsearch->new(
+    	client => $es_client,
+	nodes => @nodes,
+        cxn => $es_cxn,
+        #trace_to => 'Stderr',
+        request_timeout => $es_request_timeout
+    );
+};
+
+# check if connection established / credentials must be used!
+if ($@) {
+    $session->terminate;
+    exit;
+}
+
+my $export_plugin_selected = $json_request_browser->{export_plugin_selected};
+
+# get all results up to conf's es_max_export (ES default 10.000)
+if ( $export_plugin_selected ne "false" )
+{
+        $json_request_browser->{size} = $es_max_export;
+}
+
+# pimp and enrich request
+$json_request_browser = $plugin->modify_request($session,$json_request_browser);
+
+# do search
+my $result = $es->search( { 'body' => { %$json_request_browser } } );
+
+# dump in/out
+#print $fh_dumper Dumper  "*** result: ****************";
+#print $fh_dumper Dumper $result;
+#print $fh_dumper Dumper  "*** result ends *******************";
+
+# push result to browser - utf-8 or not
+my $export_plugin = $session->get_repository->plugin( "Export::".$export_plugin_selected );
+my $plugin_mimetype = $export_plugin->param( 'mimetype' );
+if ( index($plugin_mimetype, "utf-8" ) != -1 )
+{
+	binmode( STDOUT, ":utf8" );
+}
+
+# take hits ids
+my $hits_ref     = $result->{hits}->{hits};
+my $hits_counter = scalar(@$hits_ref);
+if ( $hits_counter gt 0 ) {
+	my @ids = [];
+	for my $i ( 0 .. $hits_counter - 1 ) {
+		$ids[$i] =  $result->{hits}->{hits}[$i]->{_source}->{id};
+	}
+	$plugin->do_export($session,$export_plugin_selected,@ids);
+}
+
+#print $fh_dumper Dumper  "*** $0 ends ****************";
+#close $fh_dumper;
+$session->terminate;
+
+exit;
+
+sub get_proxy_plugin
+{
+	my( $repo ) = @_;
+	
+	my $plugin = $repo->plugin( 'FacetedSearch::ESProxy' );
+	
+	if (!defined $plugin)
+	{
+		print STDERR "Failed to load FacetedSearch::ESProxy plugin\n";
+		$repo->terminate;
+		exit 1;
+	}
+	
+	return $plugin;
+}
+
+1;
