@@ -1,4 +1,4 @@
-# Elasticsearch
+# EPrintsElasticsearch
 Search EPrints on Elasticsearch
 
 The EPrints - Elasticsearch integration has been developed at University of Zurich (UZH) by
