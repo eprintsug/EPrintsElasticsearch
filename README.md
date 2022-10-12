@@ -8,7 +8,7 @@ The EPrints - Elasticsearch integration has been developed at University of Zuri
 
 It has been presented at OR2021 during the presentation of EPrints at the Repository Rodeo.
 
-We provide the software here as is, with sufficient documentation for integration with other EPrints repositories. However, each repository has its individual data structure, which requires configuration, modification of the mapping and indexing methods and the GUI parts (facets) on your own. Please not that we are not able to provide any support. To learn about Elasticsearch, it is recommended to visit the Elasticsearch webinars or the Elasticsearch Engineering trainings.
+We provide the software here as is, with sufficient documentation for integration with other EPrints repositories. However, each repository has its individual data structure, which requires configuration, modification of the mapping and indexing methods and the GUI parts (facets) on your own. Please note that we are not able to provide any support. To learn about Elasticsearch, it is recommended to visit the Elasticsearch webinars or the Elasticsearch Engineering trainings.
 
 
 ## Features
