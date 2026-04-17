@@ -560,7 +560,9 @@ sub index_fields
 			
 		# don't index subfields of a compound field a second time if there's a indexing function for the compound field
 		my $parentname = $field->property( "parent_name" );
-		next if (defined $parentname && $repo->can_call( "es_index_" . $dataset_id . "_" . $parentname ));
+		#		next if (defined $parentname && $repo->can_call( "es_index_" . $dataset_id . "_" . $parentname ));
+		next if (defined $parentname);
+
 		
 		if ($repo->can_call( $index_fn ))
 		{
@@ -568,6 +570,7 @@ sub index_fields
 		}
 		elsif ($repo->can_call( $index_fn_type ))
 		{
+			print STDERR $field->name."\n";
 			my $ret = $repo->call( $index_fn_type, $repo, $dataobj, $field, $index_fields );
 		}
 		else

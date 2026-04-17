@@ -34,30 +34,30 @@
 # order: Standard first, other a-z
 
 $c->{es}->{export_plugins} = [ 
-  {
-    name => 'Export::ZORACSV',
-    label => 'ZORA CSV',
-    order => '10',
-    vis_level => 'all',
-  },
-  {
-    name => 'Export::AKABER',
-    label => 'AKABER',
-    order => '20',
-    vis_level => 'all',
-  },
+	#  {
+	  #    name => 'Export::ZORACSV',
+	  #    label => 'ZORA CSV',
+	  #    order => '10',
+	  #    vis_level => 'all',
+	  #  },
+	  #  {
+	  #    name => 'Export::AKABER',
+	  #    label => 'AKABER',
+	  #    order => '20',
+	  #    vis_level => 'all',
+	  #  },
   {
     name => 'Export::BibTeX',
     label => 'BibTeX',
     order => '25',
     vis_level => 'all',
   },
-  {
-    name => 'Export::Citavi',
-    label => 'Citavi',
-    order => '30',
-    vis_level => 'all',
-  },
+  #  {
+  #    name => 'Export::Citavi',
+  #    label => 'Citavi',
+  #    order => '30',
+  #    vis_level => 'all',
+  #  },
   {
     name => 'Export::DC_Ext',
     label => 'Dublin Core',
@@ -82,36 +82,36 @@ $c->{es}->{export_plugins} = [
     order => '50',
     vis_level => 'all',
   },
-  {
-    name => 'Export::Evaluation',
-    label => 'Evaluation',
-    order => '55',
-    vis_level => 'all',
-  },
+  #  {
+  #    name => 'Export::Evaluation',
+  #    label => 'Evaluation',
+  #    order => '55',
+  #    vis_level => 'all',
+  #  },
   {
     name => 'Export::HTML',
     label => 'HTML Citation',
     order => '60',
     vis_level => 'all',
   },
-  {
-    name => 'Export::IRO',
-    label => 'IRO - UZH',
-    order => '65',
-    vis_level => 'all',
-  },
+  #  {
+  #    name => 'Export::IRO',
+  #    label => 'IRO - UZH',
+  #    order => '65',
+  #    vis_level => 'all',
+  #},
   {
     name => 'Export::JSON',
     label => 'JSON',
     order => '70',
     vis_level => 'all',
   },
-  {
-    name => 'Export::MARC21XML',
-    label => 'MARC21 XML',
-    order => '75',
-    vis_level => 'all',
-  },
+  #  {
+  #    name => 'Export::MARC21XML',
+  #    label => 'MARC21 XML',
+  #    order => '75',
+  #    vis_level => 'all',
+  #  },
   {
     name => 'Export::METS',
     label => 'METS',

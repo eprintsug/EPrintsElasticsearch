@@ -80,7 +80,7 @@ function UZHExportBox(props) {
     
     /* https://stackoverflow.com/questions/32545632/how-can-i-download-a-file-using-window-fetch */
 
-    fetch('/cgi/{repositoryname}/es-{repositoryname}-proxy-export', {
+    fetch('/cgi/es/es-proxy-export', {
       method: 'POST',
       headers: {
         //'Accept': 'application/json', 
