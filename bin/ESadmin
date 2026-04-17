@@ -1,4 +1,7 @@
-#!/usr/bin/perl -w -I/usr/local/eprints/perl_lib
+#!/usr/bin/perl
+
+use FindBin;
+use lib "$FindBin::Bin/../../../perl_lib";
 
 ###############################################################################
 #
@@ -160,8 +163,9 @@ Output version information and exit.
 use EPrints;
 use Getopt::Long;
 use Pod::Usage;
+use Data::Dumper;
 
-use lib "/usr/local/eprints/perl_cpan/lib/perl5";
+use lib "/usr/local/eprints/perl_cpan/lib/perl5"; # :/
 
 my $verbose = 0;
 my $quiet = 0;
@@ -197,15 +201,16 @@ $noise = 0 if( $quiet );
 $noise = 1+$verbose if( $verbose );
 
 my $ep = EPrints->new();
+my $ep_indexer = EPrints::Index::Daemon->new();
 
 my $action = shift @ARGV;
 my $repoid = shift @ARGV;
 pod2usage(1) unless defined $repoid;
 my $repository = $ep->repository( $repoid, noise=>$noise );
 
-if( $action eq "create_index" ) { create_index( $repository ); }
-elsif( $action eq "erase_index" ) { erase_index ( $repository ); }
-elsif( $action eq "update_mapping" ) { update_mapping ( $repository ); }
+if( $action eq "create_index" ) { create_index( $repository, $ep_indexer ); }
+elsif( $action eq "erase_index" ) { erase_index ( $repository, $ep_indexer ); }
+elsif( $action eq "update_mapping" ) { update_mapping ( $repository, $ep_indexer ); }
 elsif( $action eq "reindex" ) 
 {
 	my $datasetid = shift @ARGV;
@@ -261,19 +266,13 @@ sub get_es_plugin
 
 sub create_index
 {
-	my( $repo ) = @_;
+	my( $repo, $ep_indexer ) = @_;
 
 	my $result;
 	
 	print "\n";
 	print "You are about to create an ElasticSearch index for the ".$repo->get_id." repository.\n";
-	
-	my $sure = $force || EPrints::Utils::get_input_confirm( "Did you stop the EPrints indexer", 1 );
-	unless( $sure )
-	{
-		print "Aborting then.\n\n";
-		exit( 1 );
-	}
+        stop_eprints_indexer($ep_indexer);	
 	
 	my $es_plugin = get_es_plugin( $repo );
 	
@@ -281,11 +280,13 @@ sub create_index
 	exit 1 if ($result->{error} != 0);
 	
 	$result = $es_plugin->create_mapping();
+
+        print STDERR "RESULT is ".Dumper($result)."\n";
 	exit 1 if ($result->{error} != 0);
 	
 	print "\n";
 	print "ElasticSearch index has been created.\n";
-	print "Don't forget to start the EPrints indexer.\n";
+        start_eprints_indexer($ep_indexer);	
 
 	return;
 }
@@ -306,13 +307,8 @@ sub erase_index
 		exit( 1 );
 	}
 	
-	$sure = $force || EPrints::Utils::get_input_confirm( "Did you stop the EPrints indexer", 1 );
-	unless( $sure )
-	{
-		print "Aborting then.\n\n";
-		exit( 1 );
-	}
-	
+	stop_eprints_indexer($ep_indexer);	
+
 	# Remove index events from event queue
 	my $ds_eventqueue = $repo->dataset( "event_queue" );
 	
@@ -363,7 +359,7 @@ sub erase_index
 	
 	print "\n";
 	print "ElasticSearch index has been erased completely.\n";
-	print "Don't forget to start the EPrints indexer.\n";
+        start_eprints_indexer($ep_indexer);	
 	
 	return;
 }
@@ -694,6 +690,71 @@ sub check_diffs
 	
 	return;
 }
+
+sub stop_eprints_indexer {
+
+	my( $ep_indexer ) = @_;
+
+	if( !$ep_indexer->is_running )
+	{
+		print "EPrints Indexer is not running\n";
+	} 
+	elsif( $ep_indexer->has_stalled() )
+	{
+		print "EPrints Indexer appears to have stalled. Will attempt restart after this.\n";
+	}	
+	else
+	{
+		print "EPrints Indexer is running, stopping now\n";
+        	if( !$ep_indexer->stop_daemon )
+	        {
+	 	  my $pid = $ep_indexer->get_pid();
+		  print STDERR <<END;
+The indexer process with process ID $pid failed to stop. You may
+need to stop it (and any child processes) by hand.
+END
+  		  exit 0;
+	        }
+
+	}
+
+}
+
+sub start_eprints_indexer
+{
+	my( $ep_indexer ) = @_;
+
+	if( $ep_indexer->is_running )
+	{
+		my $pid = $ep_indexer->get_pid();
+		my $pidfile = $ep_indexer->get_pidfile();
+		print <<END;
+
+EPrints indexer appears to be running with process ID $pid. 
+It may have crashed. 
+
+To check if the process is still running (on a linux system)
+use:
+
+ps auwx | grep indexer
+
+Options to "ps" vary on other systems. You may also try:
+
+ps -ef | grep indexer
+
+If indexer is not already running you may either:
+ * delete the PID file: $pidfile
+ * run indexer with the --force option
+
+END
+		exit 1;
+	}
+	else
+	{
+		$ep_indexer->start_daemon();
+	}
+}
+
 
 
 =head1 AUTHOR

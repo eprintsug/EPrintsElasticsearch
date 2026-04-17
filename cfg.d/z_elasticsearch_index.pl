@@ -374,6 +374,7 @@ $c->{es_index_eprint_apc} = sub
 	return 1;
 };
 
+=comment
 # title, multi language indexing
 $c->{es_index_eprint_title} = sub 
 {
@@ -446,6 +447,7 @@ $c->{es_index_eprint_multilang} = sub
 		
 	return $index_multilang;
 };
+=cut
 
 # related_url field
 $c->{es_index_eprint_related_url} = sub 
@@ -1038,7 +1040,7 @@ $c->{es_index_type_namedset} = sub
 #
 # es_title gets different treatment because of multilingual highlighting
 # earlier, the citation style was just passed to a single method
-
+=comment
 $c->{es_index_eprint_citation_es_title} = sub 
 {
 	my ($repo, $dataobj, $index_citation ) = @_;
@@ -1090,7 +1092,7 @@ $c->{es_index_eprint_citation_es_title} = sub
 	
 	return 1;
 };
-
+=cut
 
 $c->{es_index_eprint_citation_es_contributors} = sub 
 {
@@ -1138,7 +1140,7 @@ $c->{es_index_eprint_citation} = sub
 
 #
 # 4. Full text index
-#
+=comment
 $c->{es_index_eprint_fulltext} = sub 
 {
 	my ($repo, $dataobj, $index_fulltext) = @_;
@@ -1218,6 +1220,7 @@ $c->{es_index_eprint_fulltext} = sub
 	
 	return 1;
 };
+=cut
 
 #
 # 5. Document data
@@ -1380,7 +1383,7 @@ $c->{es_index_agg_eprint_name} = sub
 	
 	$names = $repo->call( "es_index_agg_contributors", $dataobj, "creators", $names);
 	$names = $repo->call( "es_index_agg_contributors", $dataobj, "editors", $names);
-	$names = $repo->call( "es_index_agg_contributors", $dataobj, "examiners", $names);
+	#	$names = $repo->call( "es_index_agg_contributors", $dataobj, "examiners", $names);
 
 	if (defined $names && scalar @$names)
 	{	
@@ -1432,7 +1435,7 @@ $c->{es_index_agg_eprint_affiliation} = sub
 	
 	$affiliations = $repo->call( "es_index_agg_contributor_affiliations", $dataobj, "creators", $affiliations);
 	$affiliations = $repo->call( "es_index_agg_contributor_affiliations", $dataobj, "editors", $affiliations);
-	$affiliations = $repo->call( "es_index_agg_contributor_affiliations", $dataobj, "examiners", $affiliations);
+	#	$affiliations = $repo->call( "es_index_agg_contributor_affiliations", $dataobj, "examiners", $affiliations);
 	
 	if (defined $affiliations && scalar @$affiliations)
 	{
@@ -1479,23 +1482,23 @@ $c->{es_index_agg_contributor_affiliations} = sub
 };
 
 # Dewey
-$c->{es_index_agg_eprint_dewey} = sub
-{
-	my ($repo, $dataobj, $index_aggregations) = @_;
-	
-	foreach my $langid (@{$repo->get_conf( "languages" )})
-	{
-		my $classifications = $repo->call( "es_index_agg_classifications", $dataobj, "dewey", $langid );
-		
-		if (defined $classifications && scalar @$classifications)
-		{
-			my $index_classifications = { 'agg_dewey_' . $langid  => [ @$classifications ] };
-			%$index_aggregations = ( %$index_aggregations, %$index_classifications );
-		}
-	}
-
-	return 1;
-};
+#$c->{es_index_agg_eprint_dewey} = sub
+#{
+#	my ($repo, $dataobj, $index_aggregations) = @_;
+#	
+#	foreach my $langid (@{$repo->get_conf( "languages" )})
+#	{
+#		my $classifications = $repo->call( "es_index_agg_classifications", $dataobj, "dewey", $langid );
+#		
+#		if (defined $classifications && scalar @$classifications)
+#		{
+#			my $index_classifications = { 'agg_dewey_' . $langid  => [ @$classifications ] };
+#			%$index_aggregations = ( %$index_aggregations, %$index_classifications );
+#		}
+#	}
+#
+#	return 1;
+#};
 
 # Subject (Communities & Collections)
 $c->{es_index_agg_eprint_subject} = sub
@@ -1549,6 +1552,8 @@ $c->{es_index_agg_classifications} = sub
 	return $classifications;
 };
 
+=comment
+
 # Language
 $c->{es_index_agg_eprint_language} = sub
 {
@@ -1581,6 +1586,7 @@ $c->{es_index_agg_eprint_language} = sub
 
 	return 1;
 };
+=cut
 
 # Journal/Series title
 $c->{es_index_agg_eprint_journalseries} = sub

@@ -42,7 +42,7 @@ use EPrints;
 
 use lib '/usr/local/eprints/perl_cpan/lib/perl5';
 use CGI;
-use CGI::IDS;
+#use CGI::IDS;
 use Data::Dumper;
 
 use JSON;
@@ -217,10 +217,10 @@ sub modify_request
 		$export_plugin_selected = "false";
         }
 
-	if (check_ids($json_request_browser->{query}->{bool}->{must}[0]->{query_string}->{query}))
-        {
-               $json_request_browser->{query}->{bool}->{must}[0]->{query_string}->{query} = "";
-        }
+	#	if (check_ids($json_request_browser->{query}->{bool}->{must}[0]->{query_string}->{query}))
+	#{
+	#       $json_request_browser->{query}->{bool}->{must}[0]->{query_string}->{query} = "";
+	#}
 
 	# a+b) replace unwanted special chars like "/" to "\\/", same with "[]{}<>"; later: beware this string: "3874384""/&%
 	# b) replace ":" to " " in query, except ALIASES
@@ -248,7 +248,7 @@ sub modify_request
                 		my $agg_order = $conf_agg->{order};
 				$json_request_browser->{aggs}->{$agg_name}->{terms}->{order} = $agg_order;
 			}
-			push $json_request_browser->{_source}, $agg_name;	
+			push @{$json_request_browser->{_source}}, $agg_name;	
 		}
 		if ( $type eq "language" )
 		{
@@ -266,8 +266,8 @@ sub modify_request
 				$json_request_browser->{aggs}->{$agg_name_de}->{terms}->{order} = $agg_order;
 				$json_request_browser->{aggs}->{$agg_name_en}->{terms}->{order} = $agg_order;
 			}
-			push $json_request_browser->{_source}, $agg_name_de;	
-			push $json_request_browser->{_source}, $agg_name_en;	
+			push @{$json_request_browser->{_source}}, $agg_name_de;	
+			push @{$json_request_browser->{_source}}, $agg_name_en;	
 		}
         }
 	# AGGS from config z_elasticsearch_aggregations.pl to _source end

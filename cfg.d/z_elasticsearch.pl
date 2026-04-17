@@ -29,27 +29,25 @@
 #
 ###############################################################################
 
-$c->{es}->{scheme} =         'https';
+$c->{es}->{scheme} =         'http';
 $c->{es}->{host} =           [ 
-                                'host1.domain.com',
-                                'host2.domain.com',
-                                'host3.domain.com',
+                                'localhost',
                              ];
 $c->{es}->{port} =           '9200';
 $c->{es}->{path} =           '/';
-$c->{es}->{index} =          'name_of_es_index';
-$c->{es}->{info}->{admin} =  'es_index_admin:password';
-$c->{es}->{info}->{user} =   'es_index_user:password';
+$c->{es}->{index} =          'gold';
+$c->{es}->{info}->{admin} =  'es_index_admin:1tgucGuWTY0GWA08hdvu';
+$c->{es}->{info}->{user} =   'es_index_user:1tgucGuWTY0GWA08hdvu';
 $c->{es}->{cxn} =            'LWP';
 $c->{es}->{client} =         '7_0::Direct';
 
 $c->{es}->{static_settings} = {
 	"number_of_shards" => 1,
-	"number_of_replicas" => 2,
+	"number_of_replicas" => 0,
 };
 
 $c->{es}->{dynamic_settings} = {
-	"index.mapping.nested_fields.limit" => 50,
+	"index.mapping.nested_fields.limit" => 100,
 };
 
 # The datasets to be indexed

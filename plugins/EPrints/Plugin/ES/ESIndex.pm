@@ -178,7 +178,7 @@ sub create_index
 	my $e = $self->create_es_object( "admin" );
 	my $index_name = $repo->get_conf( "es", "index" );
 	my $settings = $repo->get_conf( "es", "static_settings" );
-	
+
 	my $response = $e->indices->create( 
 		index => $index_name,
 		body => {
@@ -423,6 +423,8 @@ sub create_mapping
 			},
 		};
 		
+                print STDERR "About to PUT the mapping to $indexname...\n";
+
 		$response = $e->indices->put_mapping(
 			index => $indexname,
 			body => $mapping,
@@ -918,7 +920,7 @@ sub error_handler
 	
 	my $feedback = {};
 	
-	if (defined $r->{acknowledged} && $r->{acknowledged} eq 'true')
+	if (defined $r->{acknowledged} && $r->{acknowledged} > 0)
 	{
 		$feedback->{error} = 0;
 	}

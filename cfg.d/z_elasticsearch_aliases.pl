@@ -53,26 +53,26 @@ $c->{es}->{aliases}->{eprint} = [
     path => "metadata.eprint.book_title",
     expand => 0,
   },
-  {
-    alias => 'CC',
-    path => "agg_subject",
-    expand => 1,
-  },
+  #  {
+  #  alias => 'CC',
+  #  path => "agg_subject",
+  #  expand => 1,
+  #},
   {
     alias => 'CO',
     path => "metadata.eprint.contributor_search.country",
     expand => 0,
   },
-  {
-    alias => 'CS',
-    path => "metadata.eprint.chair_subject",
-    expand => 0,
-  },
-  {
-    alias => 'DOI',
-    path => "metadata.eprint.doi",
-    expand => 0,
-  },
+  #  {
+  #  alias => 'CS',
+  #  path => "metadata.eprint.chair_subject",
+  #  expand => 0,
+  #},
+  #  {
+  #  alias => 'DOI',
+  #  path => "metadata.eprint.doi",
+  #  expand => 0,
+  #},
   {
     alias => 'EPID',
     path => "id",
@@ -114,11 +114,11 @@ $c->{es}->{aliases}->{eprint} = [
     path => "metadata.eprint.contributor_search.name",
     expand => 0,
   },
-  {
-    alias => 'OA',
-    path => "metadata.eprint.oa_status_search",
-    expand => 0,
-  },
+  #  {
+  #  alias => 'OA',
+  #  path => "metadata.eprint.oa_status_search",
+  #  expand => 0,
+  #},
   {
     alias => 'ORCID',
     path => "metadata.eprint.contributor_search.orcid",
@@ -139,11 +139,11 @@ $c->{es}->{aliases}->{eprint} = [
     path => "metadata.eprint.pagerange",
     expand => 0,
   },
-  {
-    alias => 'PMID',
-    path => "metadata.eprint.pubmedid",
-    expand => 0,
-  },
+  #  {
+  #  alias => 'PMID',
+  #  path => "metadata.eprint.pubmedid",
+  #  expand => 0,
+  #},
   {
     alias => 'PY',
     path => 'agg_pubyear_key',
@@ -165,11 +165,11 @@ $c->{es}->{aliases}->{eprint} = [
     path => "metadata.eprint.title",
     expand => 1,
   },
-  {
-    alias => 'TY',
-    path => "agg_pubtype",
-    expand => 1,
-  },
+  #  {
+  #  alias => 'TY',
+  #  path => "agg_pubtype",
+  #  expand => 1,
+  #},
   {
     alias => 'VL',
     path => "metadata.eprint.volume",
