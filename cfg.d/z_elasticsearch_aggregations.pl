@@ -50,7 +50,7 @@ $c->{es}->{aggs} = [
     type => 'key',
     size => '30',
     order => {
-               '_term' => 'desc'
+               '_key' => 'desc'
              },
     gui_order => '10',
     gui_isfilterable => 'false',
