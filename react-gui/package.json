@@ -1,11 +1,11 @@
 {
   "name": "elasticsearch-example",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "private": true,
   "dependencies": {
-    "@elastic/react-search-ui": "1.4.1",
-    "@elastic/react-search-ui-views": "1.4.1",
-    "@elastic/search-ui": "1.4.1",
+    "@elastic/react-search-ui": "1.24.2",
+    "@elastic/react-search-ui-views": "1.24.2",
+    "@elastic/search-ui": "1.24.2",
     "copyfiles": "^2.4.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
