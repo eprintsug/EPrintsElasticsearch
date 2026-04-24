@@ -541,6 +541,38 @@ $c->{es_index_agg_eprint_journalseries} = sub
 	return 1;
 };
 
+# Has fulltext
+$c->{es_index_agg_eprint_hasfulltext} = sub
+{
+	my ($repo, $dataobj, $index_aggregations) = @_;
+	
+	my $session =  $dataobj->{session};
+	
+	my $value = $dataobj->get_value( "full_text_status" );
+	
+	my $current_language = $repo->get_langid;
+	
+	foreach my $langid (@{$repo->get_conf( "languages" )})
+	{
+		$session->change_lang( $langid );
+		
+		my $phrase;
+		if ($value eq "public" || $value eq "restricted")
+		{
+			$phrase = $session->phrase( "es_agg_hasfulltext_yes" );
+		}
+		else
+		{
+			$phrase = $session->phrase( "es_agg_hasfulltext_no" );
+		}
+		
+		my $index_hasfulltext = { 'agg_hasfulltext_' . $langid => $phrase };
+		%$index_aggregations = ( %$index_aggregations, %$index_hasfulltext );
+	}
+		
+	return 1;	
+};
+
 
 #
 # Helper methods
