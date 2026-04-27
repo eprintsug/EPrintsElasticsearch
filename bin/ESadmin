@@ -165,7 +165,7 @@ use Getopt::Long;
 use Pod::Usage;
 use Data::Dumper;
 
-use lib "/usr/local/eprints/perl_cpan/lib/perl5"; # :/
+#use lib "/usr/local/eprints/perl_cpan/lib/perl5"; # :/
 
 my $verbose = 0;
 my $quiet = 0;
@@ -179,14 +179,14 @@ my $noninteractive = 0;
 Getopt::Long::Configure("permute");
 
 GetOptions( 
-	'help|?' => \$help,
-	'man' => \$man,
-	'version' => \$version,
-	'verbose+' => \$verbose,
-	'silent' => \$quiet,
-	'quiet' => \$quiet,
-	'direct' => \$direct,
-	'force' => \$force,
+  'help|?' => \$help,
+  'man' => \$man,
+  'version' => \$version,
+  'verbose+' => \$verbose,
+  'silent' => \$quiet,
+  'quiet' => \$quiet,
+  'direct' => \$direct,
+  'force' => \$force,
 ) || pod2usage( 2 );
 EPrints::Utils::cmd_version( "ESadmin" ) if $version;
 pod2usage( 1 ) if $help;
@@ -213,34 +213,34 @@ elsif( $action eq "erase_index" ) { erase_index ( $repository, $ep_indexer ); }
 elsif( $action eq "update_mapping" ) { update_mapping ( $repository, $ep_indexer ); }
 elsif( $action eq "reindex" ) 
 {
-	my $datasetid = shift @ARGV;
-	pod2usage(1) unless defined $datasetid;
-	reindex( $repository, $datasetid, @ARGV );
+  my $datasetid = shift @ARGV;
+  pod2usage(1) unless defined $datasetid;
+  reindex( $repository, $datasetid, @ARGV );
 }
 elsif( $action eq "remove_indexitem" ) 
 {
-	my $datasetid = shift @ARGV;
-	pod2usage(1) unless defined $datasetid;
-	remove_indexitem( $repository, $datasetid, @ARGV );
+  my $datasetid = shift @ARGV;
+  pod2usage(1) unless defined $datasetid;
+  remove_indexitem( $repository, $datasetid, @ARGV );
 }
 elsif( $action eq "repair_index" )
 {
-	my $datasetid = shift @ARGV;
-	pod2usage(1) unless defined $datasetid;
-	repair_index( $repository, $datasetid );
+  my $datasetid = shift @ARGV;
+  pod2usage(1) unless defined $datasetid;
+  repair_index( $repository, $datasetid );
 }
 elsif( $action eq "check_counts" )
 {
-	my $datasetid = shift @ARGV;
-	pod2usage(1) unless defined $datasetid;
-	check_counts( $repository, $datasetid );	
+  my $datasetid = shift @ARGV;
+  pod2usage(1) unless defined $datasetid;
+  check_counts( $repository, $datasetid );  
 }
 elsif( $action eq "check_diffs" )
 {
-	my $datasetid = shift @ARGV;
-	my $check_date = shift @ARGV;
-	pod2usage(1) unless defined $datasetid;
-	check_diffs( $repository, $datasetid, $check_date );	
+  my $datasetid = shift @ARGV;
+  my $check_date = shift @ARGV;
+  pod2usage(1) unless defined $datasetid;
+  check_diffs( $repository, $datasetid, $check_date );  
 }
 else { pod2usage( 1 ); }
 
@@ -249,486 +249,485 @@ exit;
 
 sub get_es_plugin
 {
-	my( $repo ) = @_;
-	
-	my $plugin = $repo->plugin( 'ES::ESIndex' );
-	
-	if (!defined $plugin)
-	{
-		print STDERR "Failed to load ES::ESIndex plugin\n";
-		$repo->terminate;
-		exit 1;
-	}
-	
-	return $plugin;
+  my( $repo ) = @_;
+  
+  my $plugin = $repo->plugin( 'ES::ESIndex' );
+  
+  if (!defined $plugin)
+  {
+    print STDERR "Failed to load ES::ESIndex plugin\n";
+    $repo->terminate;
+    exit 1;
+  }
+  
+  return $plugin;
 }
 
 
 sub create_index
 {
-	my( $repo, $ep_indexer ) = @_;
+  my( $repo, $ep_indexer ) = @_;
 
-	my $result;
-	
-	print "\n";
-	print "You are about to create an ElasticSearch index for the ".$repo->get_id." repository.\n";
-        stop_eprints_indexer($ep_indexer);	
-	
-	my $es_plugin = get_es_plugin( $repo );
-	
-	$result = $es_plugin->create_index();
-	exit 1 if ($result->{error} != 0);
-	
-	$result = $es_plugin->create_mapping();
+  my $result;
+  
+  print "\n";
+  print "You are about to create an ElasticSearch index for the ".$repo->get_id." repository.\n";
+        stop_eprints_indexer($ep_indexer);  
+  
+  my $es_plugin = get_es_plugin( $repo );
+  
+  $result = $es_plugin->create_index();
+  exit 1 if ($result->{error} != 0);
+  
+  $result = $es_plugin->create_mapping();
 
         print STDERR "RESULT is ".Dumper($result)."\n";
-	exit 1 if ($result->{error} != 0);
-	
-	print "\n";
-	print "ElasticSearch index has been created.\n";
-        start_eprints_indexer($ep_indexer);	
+  exit 1 if ($result->{error} != 0);
+  
+  print "\n";
+  print "ElasticSearch index has been created.\n";
+        start_eprints_indexer($ep_indexer); 
 
-	return;
+  return;
 }
 
 sub erase_index
 {
-	my( $repo ) = @_;
+  my( $repo ) = @_;
 
-	my $result;
-	
-	print "\n";
-	print "You are about to erase the ElasticSearch index for the ".$repo->get_id." repository.\n";
-	
-	my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
-	unless( $sure )
-	{
-		print "Aborting then.\n\n";
-		exit( 1 );
-	}
-	
-	stop_eprints_indexer($ep_indexer);	
+  my $result;
+  
+  print "\n";
+  print "You are about to erase the ElasticSearch index for the ".$repo->get_id." repository.\n";
+  
+  my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+  unless( $sure )
+  {
+    print "Aborting then.\n\n";
+    exit( 1 );
+  }
+  
+  stop_eprints_indexer($ep_indexer);  
 
-	# Remove index events from event queue
-	my $ds_eventqueue = $repo->dataset( "event_queue" );
-	
-	my $searchexp1 = $ds_eventqueue->prepare_search();
-	$searchexp1->add_field(
-		fields => [
-			$ds_eventqueue->field( 'pluginid' )
-		],
-		value => "Event::Indexer",
-		match => "EQ",
-	);
-	
-	$searchexp1->add_field(
-		fields => [
-			$ds_eventqueue->field( 'action' )
-		],
-		value => "index_all",
-		match => "EQ",
-	);
-	
-	my $event_list1 = $searchexp1->perform_search;
-	
-	my $searchexp2 = $ds_eventqueue->prepare_search();
-	$searchexp2->add_field(
-		fields => [
-			$ds_eventqueue->field( 'pluginid' )
-		],
-		value => "Event::Indexer",
-		match => "EQ",
-	);
-	
-	$searchexp2->add_field(
-		fields => [
-			$ds_eventqueue->field( 'action' )
-		],
-		value => "index",
-		match => "EQ",
-	);
-	
-	my $event_list2 = $searchexp2->perform_search;
-	
-	$event_list2->map( \&_remove_event );
+  # Remove index events from event queue
+  my $ds_eventqueue = $repo->dataset( "event_queue" );
+  
+  my $searchexp1 = $ds_eventqueue->prepare_search();
+  $searchexp1->add_field(
+    fields => [
+      $ds_eventqueue->field( 'pluginid' )
+    ],
+    value => "Event::Indexer",
+    match => "EQ",
+  );
+  
+  $searchexp1->add_field(
+    fields => [
+      $ds_eventqueue->field( 'action' )
+    ],
+    value => "index_all",
+    match => "EQ",
+  );
+  
+  my $event_list1 = $searchexp1->perform_search;
+  
+  my $searchexp2 = $ds_eventqueue->prepare_search();
+  $searchexp2->add_field(
+    fields => [
+      $ds_eventqueue->field( 'pluginid' )
+    ],
+    value => "Event::Indexer",
+    match => "EQ",
+  );
+  
+  $searchexp2->add_field(
+    fields => [
+      $ds_eventqueue->field( 'action' )
+    ],
+    value => "index",
+    match => "EQ",
+  );
+  
+  my $event_list2 = $searchexp2->perform_search;
+  
+  $event_list2->map( \&_remove_event );
 
-	my $es_plugin = get_es_plugin( $repo );
-	
-	$result = $es_plugin->delete_index();
-	exit 1 if ($result->{error} != 0);
-	
-	print "\n";
-	print "ElasticSearch index has been erased completely.\n";
-        start_eprints_indexer($ep_indexer);	
-	
-	return;
+  my $es_plugin = get_es_plugin( $repo );
+  
+  $result = $es_plugin->delete_index();
+  exit 1 if ($result->{error} != 0);
+  
+  print "\n";
+  print "ElasticSearch index has been erased completely.\n";
+        start_eprints_indexer($ep_indexer); 
+  
+  return;
 }
 
 sub _remove_event
 {
-	my ($session, $dataset, $eventobj) = @_;
-	
-	my $success = $eventobj->delete;
-	
-	return;
+  my ($session, $dataset, $eventobj) = @_;
+  
+  my $success = $eventobj->delete;
+  
+  return;
 }
 
 sub update_mapping
 {
-	my( $repo ) = @_;
+  my( $repo ) = @_;
 
-	my $result;
-	
-	print "\n";
-	print "You are about to update the mapping of the ElasticSearch index for the ".$repo->get_id." repository.\n";
-	
-	my $sure = $force || EPrints::Utils::get_input_confirm( "Did you stop the EPrints indexer", 1 );
-	unless( $sure )
-	{
-		print "Aborting then.\n\n";
-		exit( 1 );
-	}
-	
-	my $es_plugin = get_es_plugin( $repo );
+  my $result;
+  
+  print "\n";
+  print "You are about to update the mapping of the ElasticSearch index for the ".$repo->get_id." repository.\n";
+  
+  my $sure = $force || EPrints::Utils::get_input_confirm( "Did you stop the EPrints indexer", 1 );
+  unless( $sure )
+  {
+    print "Aborting then.\n\n";
+    exit( 1 );
+  }
+  
+  my $es_plugin = get_es_plugin( $repo );
 
-	$result = $es_plugin->create_mapping();
-	exit 1 if ($result->{error} != 0);
-	
-	print "\n";
-	print "Mapping of ElasticSearch index has been updated.\n";
-	print "Don't forget to start the EPrints indexer.\n";
+  $result = $es_plugin->create_mapping();
+  exit 1 if ($result->{error} != 0);
+  
+  print "\n";
+  print "Mapping of ElasticSearch index has been updated.\n";
+  print "Don't forget to start the EPrints indexer.\n";
 
-	return;
+  return;
 }
 
 sub reindex
 {
-	my( $repo, $datasetid, @ids ) = @_;
+  my( $repo, $datasetid, @ids ) = @_;
 
-	my $indexer;
-	
-	my $dataset = $repo->dataset( $datasetid );
-	if( !defined $dataset )
-	{
-		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
-		exit( 1 );
-	}
+  my $indexer;
+  
+  my $dataset = $repo->dataset( $datasetid );
+  if( !defined $dataset )
+  {
+    print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+    exit( 1 );
+  }
 
-	my $list;
-	if( @ids )
-	{ 
-		# 2020/10/01/jw add range of eprint_ids
-		my $pos = index($ids[0],"-");
-		if ($pos >= 0) {
-			my $von = substr($ids[0],0,$pos);
-			my $bis = substr($ids[0],$pos+1);
-			@ids = ($von..$bis);
-		}
-		# 2020/10/01/jw add range of eprint_ids - end
+  my $list;
+  if( @ids )
+  { 
+    # 2020/10/01/jw add range of eprint_ids
+    my $pos = index($ids[0],"-");
+    if ($pos >= 0) {
+      my $von = substr($ids[0],0,$pos);
+      my $bis = substr($ids[0],$pos+1);
+      @ids = ($von..$bis);
+    }
+    # 2020/10/01/jw add range of eprint_ids - end
 
-		$list = $dataset->list( \@ids );
-	}
-	else
-	{
-		$list = $dataset->search;
+    $list = $dataset->list( \@ids );
+  }
+  else
+  {
+    $list = $dataset->search;
 
-		if( $noise > 0 )
-		{
-			print "\n";
-			print "You are about to reindex \"$datasetid\" in the ".$repo->get_id." repository.\n";
-			print "This can take some time.\n\n";
-			print "Number of records in set: ".$list->count."\n";
-		}
-	
-		my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
-		unless( $sure )
-		{
-			print "Aborting then.\n\n";
-			exit( 1 );
-		}
-	}
-	
-	if ($direct)
-	{
-		$indexer = get_es_plugin( $repo );
-		print STDERR "Using direct indexing\n";
-	}
-	else
-	{
-		$indexer = $repo->plugin( "Event::Indexer" );
-		print STDERR "Using queued indexing\n";
-	}
+    if( $noise > 0 )
+    {
+      print "\n";
+      print "You are about to reindex \"$datasetid\" in the ".$repo->get_id." repository.\n";
+      print "This can take some time.\n\n";
+      print "Number of records in set: ".$list->count."\n";
+    }
+  
+    my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+    unless( $sure )
+    {
+      print "Aborting then.\n\n";
+      exit( 1 );
+    }
+  }
+  
+  if ($direct)
+  {
+    $indexer = get_es_plugin( $repo );
+    print STDERR "Using direct indexing\n";
+  }
+  else
+  {
+    $indexer = $repo->plugin( "Event::Indexer" );
+    print STDERR "Using queued indexing\n";
+  }
+  $list->map(sub {
+    my( undef, $dataset, $item ) = @_;
+  
+    $indexer->index_all( $item );
 
-	$list->map(sub {
-		my( undef, $dataset, $item ) = @_;
-	
-		$indexer->index_all( $item );
-
-		if( $noise >= 2 )
-		{
-			print STDERR "Indexed item: ".$dataset->id()."/".$item->id()."\n";
-		}
-	});
-	
-	return;
+    if( $noise >= 2 )
+    {
+      print STDERR "Indexed item: ".$dataset->id()."/".$item->id()."\n";
+    }
+  });
+  
+  return;
 }
 
 sub remove_indexitem
 {
-	my( $repo, $datasetid, @ids ) = @_;
-	
-	my $indexer;
-	
-	my $dataset = $repo->dataset( $datasetid );
-	if( !defined $dataset )
-	{
-		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
-		$repo->terminate;
-		exit( 1 );
-	}
+  my( $repo, $datasetid, @ids ) = @_;
+  
+  my $indexer;
+  
+  my $dataset = $repo->dataset( $datasetid );
+  if( !defined $dataset )
+  {
+    print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+    $repo->terminate;
+    exit( 1 );
+  }
 
-	my $list;
-	if( @ids )
-	{ 
-		# 2020/10/01/jw add range of eprint_ids
-		my $pos = index($ids[0],"-");
-		if ($pos >= 0) {
-			my $von = substr($ids[0],0,$pos);
-			my $bis = substr($ids[0],$pos+1);
-			@ids = ($von..$bis);
-		}
-		# 2020/10/01/jw add range of eprint_ids - end
+  my $list;
+  if( @ids )
+  { 
+    # 2020/10/01/jw add range of eprint_ids
+    my $pos = index($ids[0],"-");
+    if ($pos >= 0) {
+      my $von = substr($ids[0],0,$pos);
+      my $bis = substr($ids[0],$pos+1);
+      @ids = ($von..$bis);
+    }
+    # 2020/10/01/jw add range of eprint_ids - end
 
-		$list = $dataset->list( \@ids );
-	}
-	else
-	{
-		$list = $dataset->search;
+    $list = $dataset->list( \@ids );
+  }
+  else
+  {
+    $list = $dataset->search;
 
-		if( $noise > 0 )
-		{
-			print "\n";
-			print "You are about to remove index entries in \"$datasetid\" in the ".$repo->get_id." repository.\n";
-			print "This can take some time.\n\n";
-			print "Number of records in set: ".$list->count."\n";
-		}
-	
-		my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
-		unless( $sure )
-		{
-			print "Aborting then.\n\n";
-			exit( 1 );
-		}
-	}
-	
-	if ($direct)
-	{
-		$indexer = get_es_plugin( $repo );
-		print STDERR "Using direct indexing\n";
-		
-		$list->map(sub {
-			my( undef, $dataset, $item ) = @_;
-	
-			$indexer->remove_index_item( $dataset, $item->id );
+    if( $noise > 0 )
+    {
+      print "\n";
+      print "You are about to remove index entries in \"$datasetid\" in the ".$repo->get_id." repository.\n";
+      print "This can take some time.\n\n";
+      print "Number of records in set: ".$list->count."\n";
+    }
+  
+    my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+    unless( $sure )
+    {
+      print "Aborting then.\n\n";
+      exit( 1 );
+    }
+  }
+  
+  if ($direct)
+  {
+    $indexer = get_es_plugin( $repo );
+    print STDERR "Using direct indexing\n";
+    
+    $list->map(sub {
+      my( undef, $dataset, $item ) = @_;
+  
+      $indexer->remove_index_item( $dataset, $item->id );
 
-			if( $noise >= 2 )
-			{
-				print STDERR "Removed index item: ".$dataset->id()."/".$item->id()."\n";
-			}
-	});
-		
-	}
-	else
-	{
-		$indexer = $repo->plugin( "Event::Indexer" );
-		print STDERR "Using queued indexing\n";
-		
-		$list->map(sub {
-			my( undef, $dataset, $item ) = @_;
-	
-			$indexer->removed( $dataset->base_id(), $item->id() );
+      if( $noise >= 2 )
+      {
+        print STDERR "Removed index item: ".$dataset->id()."/".$item->id()."\n";
+      }
+  });
+    
+  }
+  else
+  {
+    $indexer = $repo->plugin( "Event::Indexer" );
+    print STDERR "Using queued indexing\n";
+    
+    $list->map(sub {
+      my( undef, $dataset, $item ) = @_;
+  
+      $indexer->removed( $dataset->base_id(), $item->id() );
 
-			if( $noise >= 2 )
-			{
-				print STDERR "Removed index item: ".$dataset->id()."/".$item->id()."\n";
-			}
-		});
-	}
+      if( $noise >= 2 )
+      {
+        print STDERR "Removed index item: ".$dataset->id()."/".$item->id()."\n";
+      }
+    });
+  }
 
-	return;
+  return;
 }
 
 
 sub repair_index
 {
-	my( $repo, $datasetid ) = @_;
-	
-	my $dataset = $repo->dataset( $datasetid );
-	if( !defined $dataset )
-	{
-		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
-		$repo->terminate;
-		exit( 1 );
-	}
-	
-	my $list = $dataset->search;
-	
-	if( $noise > 0 )
-	{
-		print "\n";
-		print "You are about to repair the index for \"$datasetid\" in the ".$repo->get_id." repository.\n";
-		print "This can take some time.\n\n";
-		print "Number of records to be checked in set: ".$list->count."\n";
-	}
-	
-	my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
-	unless( $sure )
-	{
-		print "Aborting then.\n\n";
-		exit( 1 );
-	}
-	
-	my $es_plugin = get_es_plugin( $repo );
-	
-	$list->map(sub {
-		my( undef, $dataset, $item ) = @_;
-	
-		my $item_id = $item->id;
-	
-		my $ret = $es_plugin->repair_index_item( $item );
-		
-		print "Item $item_id added to ES index\n" if ($ret == 1 && $noise >=1 );
-		print "Item $item_id updated in ES index\n" if ($ret == 2 && $noise >=1 );
-	});
-	
-	return;	
+  my( $repo, $datasetid ) = @_;
+  
+  my $dataset = $repo->dataset( $datasetid );
+  if( !defined $dataset )
+  {
+    print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+    $repo->terminate;
+    exit( 1 );
+  }
+  
+  my $list = $dataset->search;
+  
+  if( $noise > 0 )
+  {
+    print "\n";
+    print "You are about to repair the index for \"$datasetid\" in the ".$repo->get_id." repository.\n";
+    print "This can take some time.\n\n";
+    print "Number of records to be checked in set: ".$list->count."\n";
+  }
+  
+  my $sure = $force || EPrints::Utils::get_input_confirm( "Continue", 1 );
+  unless( $sure )
+  {
+    print "Aborting then.\n\n";
+    exit( 1 );
+  }
+  
+  my $es_plugin = get_es_plugin( $repo );
+  
+  $list->map(sub {
+    my( undef, $dataset, $item ) = @_;
+  
+    my $item_id = $item->id;
+  
+    my $ret = $es_plugin->repair_index_item( $item );
+    
+    print "Item $item_id added to ES index\n" if ($ret == 1 && $noise >=1 );
+    print "Item $item_id updated in ES index\n" if ($ret == 2 && $noise >=1 );
+  });
+  
+  return; 
 }
 
 sub check_counts
 {
-	my( $repo, $datasetid ) = @_;
-	
-	my $repoid = $repo->id;
-	my $dataset = $repo->dataset( $datasetid );
-	if( !defined $dataset )
-	{
-		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
-		$repo->terminate;
-		exit( 1 );
-	}
-	
-	my $list = $dataset->search;
-	
-	my $ep_count = $list->count();
-	
-	my $es_plugin = get_es_plugin( $repo );
-	my $es_count = $es_plugin->get_record_count();
-	
-	print "$repoid repository count for dataset $datasetid: $ep_count\n";
-	print "Elasticsearch index count for dataset $datasetid: $es_count\n" if (defined $es_count);
-	
-	if (defined $es_count && $es_count != $ep_count)
-	{
-		print "\n";
-		print "Counts differ - please check if there are open index tasks in the\n";
-		print "repositorory's task queue. If difference persists, consider running\n";
-		print "ESadmin repair_index\n";
-	}
-	
-	return;
+  my( $repo, $datasetid ) = @_;
+  
+  my $repoid = $repo->id;
+  my $dataset = $repo->dataset( $datasetid );
+  if( !defined $dataset )
+  {
+    print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+    $repo->terminate;
+    exit( 1 );
+  }
+  
+  my $list = $dataset->search;
+  
+  my $ep_count = $list->count();
+  
+  my $es_plugin = get_es_plugin( $repo );
+  my $es_count = $es_plugin->get_record_count();
+  
+  print "$repoid repository count for dataset $datasetid: $ep_count\n";
+  print "Elasticsearch index count for dataset $datasetid: $es_count\n" if (defined $es_count);
+  
+  if (defined $es_count && $es_count != $ep_count)
+  {
+    print "\n";
+    print "Counts differ - please check if there are open index tasks in the\n";
+    print "repositorory's task queue. If difference persists, consider running\n";
+    print "ESadmin repair_index\n";
+  }
+  
+  return;
 }
 
 sub check_diffs
 {
-	my( $repo, $datasetid, $check_date ) = @_;
-	
-	my $list;
-	
-	my $dataset = $repo->dataset( $datasetid );
-	if( !defined $dataset )
-	{
-		print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
-		$repo->terminate;
-		exit( 1 );
-	}
-	
-	my $es_plugin = get_es_plugin( $repo );
-	
-	if (defined $check_date)
-	{
-		if ($check_date !~ /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)
-		{
-			print "Exiting due to invalid check date $check_date.\n" if( $noise >= 1 );
-			$repo->terminate;
-			exit( 1 );
-		}
-		
-		$check_date =~ s/T/ /g;
-		$check_date .= "-";
-		
-		my $searchexp = $dataset->prepare_search();
-		$searchexp->add_field(
-			fields => [
-				$dataset->field( 'lastmod' )
-			],
-			value => $check_date,
-			match => "EX",
-		);
-	
-		$list = $searchexp->perform_search;
-	}
-	else
-	{
-		$list = $dataset->search;
-	}
-	
-	$list->map(sub {
-		my( undef, $dataset, $item ) = @_;
-	
-		my $ret = $es_plugin->compare_index_item( $item );
-	});
-	
-	return;
+  my( $repo, $datasetid, $check_date ) = @_;
+  
+  my $list;
+  
+  my $dataset = $repo->dataset( $datasetid );
+  if( !defined $dataset )
+  {
+    print "Exiting due to unknown dataset $datasetid.\n" if( $noise >= 1 );
+    $repo->terminate;
+    exit( 1 );
+  }
+  
+  my $es_plugin = get_es_plugin( $repo );
+  
+  if (defined $check_date)
+  {
+    if ($check_date !~ /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)
+    {
+      print "Exiting due to invalid check date $check_date.\n" if( $noise >= 1 );
+      $repo->terminate;
+      exit( 1 );
+    }
+    
+    $check_date =~ s/T/ /g;
+    $check_date .= "-";
+    
+    my $searchexp = $dataset->prepare_search();
+    $searchexp->add_field(
+      fields => [
+        $dataset->field( 'lastmod' )
+      ],
+      value => $check_date,
+      match => "EX",
+    );
+  
+    $list = $searchexp->perform_search;
+  }
+  else
+  {
+    $list = $dataset->search;
+  }
+  
+  $list->map(sub {
+    my( undef, $dataset, $item ) = @_;
+  
+    my $ret = $es_plugin->compare_index_item( $item );
+  });
+  
+  return;
 }
 
 sub stop_eprints_indexer {
 
-	my( $ep_indexer ) = @_;
+  my( $ep_indexer ) = @_;
 
-	if( !$ep_indexer->is_running )
-	{
-		print "EPrints Indexer is not running\n";
-	} 
-	elsif( $ep_indexer->has_stalled() )
-	{
-		print "EPrints Indexer appears to have stalled. Will attempt restart after this.\n";
-	}	
-	else
-	{
-		print "EPrints Indexer is running, stopping now\n";
-        	if( !$ep_indexer->stop_daemon )
-	        {
-	 	  my $pid = $ep_indexer->get_pid();
-		  print STDERR <<END;
+  if( !$ep_indexer->is_running )
+  {
+    print "EPrints Indexer is not running\n";
+  } 
+  elsif( $ep_indexer->has_stalled() )
+  {
+    print "EPrints Indexer appears to have stalled. Will attempt restart after this.\n";
+  } 
+  else
+  {
+    print "EPrints Indexer is running, stopping now\n";
+          if( !$ep_indexer->stop_daemon )
+          {
+      my $pid = $ep_indexer->get_pid();
+      print STDERR <<END;
 The indexer process with process ID $pid failed to stop. You may
 need to stop it (and any child processes) by hand.
 END
-  		  exit 0;
-	        }
+        exit 0;
+          }
 
-	}
+  }
 
 }
 
 sub start_eprints_indexer
 {
-	my( $ep_indexer ) = @_;
+  my( $ep_indexer ) = @_;
 
-	if( $ep_indexer->is_running )
-	{
-		my $pid = $ep_indexer->get_pid();
-		my $pidfile = $ep_indexer->get_pidfile();
-		print <<END;
+  if( $ep_indexer->is_running )
+  {
+    my $pid = $ep_indexer->get_pid();
+    my $pidfile = $ep_indexer->get_pidfile();
+    print <<END;
 
 EPrints indexer appears to be running with process ID $pid. 
 It may have crashed. 
@@ -747,12 +746,12 @@ If indexer is not already running you may either:
  * run indexer with the --force option
 
 END
-		exit 1;
-	}
-	else
-	{
-		$ep_indexer->start_daemon();
-	}
+    exit 1;
+  }
+  else
+  {
+    $ep_indexer->start_daemon();
+  }
 }
 
 

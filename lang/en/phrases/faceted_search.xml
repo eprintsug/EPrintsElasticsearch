@@ -8,10 +8,11 @@
   <epp:phrase id="fs_agg_name">Name</epp:phrase>
   <epp:phrase id="fs_agg_pubtype">Type</epp:phrase>
   <epp:phrase id="fs_agg_language">Language</epp:phrase>
-  <epp:phrase id="fs_agg_subject">Communities &amp; Collections</epp:phrase>
-  <epp:phrase id="fs_agg_dewey">DDC</epp:phrase>
+  <epp:phrase id="fs_agg_subject">Subject</epp:phrase>
+  <epp:phrase id="fs_agg_division">Division</epp:phrase>
   <epp:phrase id="fs_agg_hasfulltext">Fulltext</epp:phrase>
   <epp:phrase id="fs_agg_journalseries">Journal</epp:phrase>
+  <epp:phrase id="fs_agg_funders">Funders</epp:phrase>
   <epp:phrase id="fs_agg_affiliation">Affiliation</epp:phrase>
 
   <epp:phrase id="fs_results"> results.</epp:phrase>
